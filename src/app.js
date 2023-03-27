@@ -21,7 +21,8 @@ else {
 
 
 
-require("./loaders/server")(app)
+require("./loaders/server")(app);
+require("./loaders/swagger")(app);
 
 const port = process.env.PORt || 5055
 Promise.all([connectDB()]).then(() => {

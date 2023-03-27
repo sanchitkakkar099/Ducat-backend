@@ -25,3 +25,6 @@ exports.success = (message = '', data = {}, code = 200) => {
     }
   }
   
+  exports.JoiParseError = (error) => {
+    return error.details[0].message.replace(/[^a-zA-Z0-9 ]/g, '')
+  }

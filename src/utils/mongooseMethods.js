@@ -21,7 +21,7 @@ async function findOne({ collection, query, project, populate, sort }) {
     return result
 }
 
-async function insertOne(collection, document, options) {
+async function insertOne({ collection, document }) {
     const result = new dbModels[collection](document)
     await result.save()
     return result
