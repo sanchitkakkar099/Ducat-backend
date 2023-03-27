@@ -2,6 +2,7 @@ const router = require("express").Router()
 const CourseController = require("../controllers/course/course.controller");
 const CourseShema = require("../validators/courseSchema")
 const validator = require("../middleware/validator")
+const CourseCategoryController = require("../controllers/course/course_category")
 
 /**
  * @typedef subModels
@@ -111,4 +112,83 @@ router.delete("/:id", CourseController.deleteCourse);
  */
 router.post("/list", CourseController.CourseList);
 
+/**
+ * @typedef CourseCategoryModel
+ * @property {string} _id
+ * @property {string} name
+ * @property {string} logo
+ * @property {string} remark - 
+ * @property {string} status
+ */
+/**
+ * cerate the course category
+ * @route POST /course/category
+ * @param {CourseCategoryModel.model} data.body.required - Edit User Object
+ * @group Course Category- operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post("/category", CourseCategoryController.createCategory);
+
+/**
+ * @typedef categoryAllModel
+ * @property {string} search
+ */
+/**
+ * cerate the course category
+ * @route POST /course/category/all
+ * @param {categoryAllModel.model} data.body.required - Edit User Object
+ * @group Course Category- operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post("/category/all", CourseCategoryController.CategoryAll);
+
+/**
+ * GEt Course Category
+ * @route GET /course/category/{id}
+ * @param {string} id.path.required - userId
+ * @group Course Category - operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.get("/category/:id", CourseCategoryController.CategoryById)
+
+/**
+ * DELETE Course Category
+ * @route DELETE /course/category/{id}
+ * @param {string} id.path.required - userId
+ * @group Course Category - operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.delete("/category/:id", CourseCategoryController.CategoryDelete)
+
+/**
+ * @typedef categoryPaginationModel
+ * @property {number} page
+ * @property {number} limit
+ * @property {number} search
+ * @property {number} status
+ */
+
+/**
+ * getCourse Category with pagination
+ * @route POST /course/category/list
+ * @param {categoryPaginationModel.model} data.body.required - Edit User Object
+ * @group Course Category - operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post("/category/list", CourseCategoryController.CategoryList)
 module.exports = router;
