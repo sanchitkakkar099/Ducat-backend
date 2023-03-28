@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const Routes = require('../routes')
+const fs = require("fs");
+const { FileDirectoryType } = require("../utils/const")
 
 
 module.exports = (app) => {
@@ -13,6 +15,13 @@ module.exports = (app) => {
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
         next()
     })
+
+    const fileAttachment = (req, res, next) => {
+        res.header('Content-Type', 'application/octet-stream')
+        res.header('Content-Disposition', 'attachment')
+        next()
+    }
+    app.use('/uploads', fileAttachment, express.static('uploads'))
 
     // routes
     app.use('/api', Routes)
@@ -28,5 +37,11 @@ module.exports = (app) => {
             time: Date.now()
         }
         res.send(toSave)
+    })
+
+    // intializeUploadFolders
+    fs.existsSync('./uploads') || fs.mkdirSync('./uploads')
+    Object.values(FileDirectoryType).forEach((file) => {
+        fs.existsSync('./uploads' + file) || fs.mkdirSync('./uploads' + file, { recursive: true })
     })
 }

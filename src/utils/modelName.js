@@ -7,4 +7,5 @@ module.exports = {
     Center: 'Center',
     Enquiry: 'Enquiry',
     Batch: "Batch",
+    FileUpload: 'FileUpload',
 }
