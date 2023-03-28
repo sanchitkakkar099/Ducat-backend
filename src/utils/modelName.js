@@ -2,6 +2,7 @@ module.exports = {
     FormHeader: 'FormHeader',
     FormField: 'FormField',
     Course: 'Course',
-    CourseCategory:'CourseCategory',
-    CourseDropDown:'CourseDropDown'
+    CourseCategory: 'CourseCategory',
+    CourseDropDown: 'CourseDropDown',
+    Center: 'Center',
 }
