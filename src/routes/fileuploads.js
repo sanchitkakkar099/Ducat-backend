@@ -25,7 +25,6 @@ const { ERROR_MSG } = require("../utils/const")
  * @group FileUpload - File Upload operation
  * @returns {object} 200 - file path object
  * @returns {Error}  Error - Unexpected error
- * @security User
  */
 router.post("/", uploadad.single('file'), async (req, res) => {
     try {
