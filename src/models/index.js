@@ -6,6 +6,7 @@ const { CourseSchema, CourseCategorySchema, CourseDropDownSchema } = require("./
 const { CenterSchema } = require("./center")
 const { EnquiriesSchema } = require("./enquery");
 const { Enquiry } = require("../utils/modelName");
+const { BatchSchema } = require("./batch")
 
 const dbModels = {
     FormHeader: mongoose.model(models.FormHeader, FormHeadersSchema),
@@ -15,6 +16,7 @@ const dbModels = {
     CourseDropDown: mongoose.model(models.CourseDropDown, CourseDropDownSchema),
     Center: mongoose.model(models.Center, CenterSchema),
     Enquiry: mongoose.model(models.Enquiry, EnquiriesSchema),
+    Batch: mongoose.model(models.Batch, BatchSchema),
 }
 
 

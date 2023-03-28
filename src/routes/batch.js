@@ -1,79 +1,79 @@
 const router = require("express").Router();
-const EnquiryController = require("../controllers/enquiry.controller");
+const BatchController = require("../controllers/batch.controller");
 
 const validator = require("../middleware/validator")
 
 
 
 /**
- * @typedef EnquiryCreateEditModel
- * @property {string} name
- * @property {string} phone
- * @property {string} email
+ * @typedef BatchCreateEditModel
  * @property {string} course
  * @property {string} center
+ * @property {string} trainer
+ * @property {string} star_date
+ * @property {string} end_date
  * @property {string} remark
  * @property {string} status
  */
 
 /**
  * get all centers with pagination
- * @route POST /enquiry
- * @param {EnquiryCreateEditModel.model} data.body.required - Edit User Object
- * @group Enquiry - operation
+ * @route POST /batch
+ * @param {BatchCreateEditModel.model} data.body.required - Edit User Object
+ * @group Batch - operation
  * @returns {object} 200
  *      Return JSON object
  *
  * @returns {Error}  Error - Unexpected error
  */
 router.post("/",
-    EnquiryController.createEnquiryAndEdit);
+    BatchController.BacthCreateAndEdit);
 
 /**
- * get Enquiry by Id
- * @route GET /enquiry/{id}
+ * get Batch by Id
+ * @route GET /batch/{id}
  * @param {string} id.path.required - userId
- * @group Enquiry - operation
+ * @group Batch - operation
  * @returns {object} 200
  *      Return JSON object
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.get("/:id", EnquiryController.EnquiryById);
+router.get("/:id", BatchController.BatchById);
 
 /**
- * DELETE Enquiry by Id
- * @route DELETE /enquiry/{id}
+ * DELETE Batch by Id
+ * @route DELETE /batch/{id}
  * @param {string} id.path.required - userId
- * @group Enquiry - operation
+ * @group Batch - operation
  * @returns {object} 200
  *      Return JSON object
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.delete("/:id", EnquiryController.EnquiryDelete);
+router.delete("/:id", BatchController.BatchDelete);
 
 /**
- * @typedef EnquiryAllModel
+ * @typedef BatchAllModel
  * @property {string} search
  * @property {string} status
  */
 
 /**
  * get all enquiries with pagination
- * @route POST /enquiry/all
- * @param {EnquiryAllModel.model} data.body.required - Edit User Object
- * @group Enquiry - operation
+ * @route POST /batch/all
+ * @param {BatchAllModel.model} data.body.required - Edit User Object
+ * @group Batch - operation
  * @returns {object} 200
  *      Return JSON object
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.post("/all", EnquiryController.EnquiryAll);
+router.post("/all", BatchController.BatchAll);
 
 
 /**
- * @typedef EnquiryPaginationModel
+ * @typedef BatchPaginationModel
  * @property {number} page
  * @property {number} limit
  * @property {string} search
@@ -82,15 +82,18 @@ router.post("/all", EnquiryController.EnquiryAll);
 
 /**
  * get all enquiries with pagination
- * @route POST /enquiry/list
- * @param {EnquiryPaginationModel.model} data.body.required - Edit User Object
- * @group Enquiry - operation
+ * @route POST /batch/list
+ * @param {BatchPaginationModel.model} data.body.required - Edit User Object
+ * @group Batch - operation
  * @returns {object} 200
  *      Return JSON object
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.post("/list", EnquiryController.EnquiryList)
+router.post("/list", BatchController.BatchList)
+
+
+module.exports = router
 
 
 module.exports = router;

@@ -6,4 +6,5 @@ module.exports = {
     CourseDropDown: 'CourseDropDown',
     Center: 'Center',
     Enquiry: 'Enquiry',
+    Batch: "Batch",
 }
