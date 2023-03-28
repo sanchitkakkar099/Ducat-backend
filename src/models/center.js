@@ -35,7 +35,7 @@ const CenterSchema = new mongoose.Schema({
     status: { type: String },
     remark: { type: String },
     isDel: { type: Boolean, default: false }
-})
+}, { timestamps: true })
 
 CenterSchema.plugin(mongoose_paginate);
 
