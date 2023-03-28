@@ -5,4 +5,5 @@ module.exports = {
     CourseCategory: 'CourseCategory',
     CourseDropDown: 'CourseDropDown',
     Center: 'Center',
+    Enquiry: 'Enquiry',
 }
