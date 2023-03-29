@@ -6,7 +6,7 @@ module.exports = {
         subtitle: Joi.string().required(),
         seo_url: Joi.string().required(),
         redirect_url: Joi.string().required(),
-        //course_category: Joi.string().required(),
+        course_category: Joi.string().required(),
         image: Joi.string().required(),
         cover_image: Joi.string().required(),
         pdf_file: Joi.string().required(),

@@ -6,7 +6,10 @@ const CenterSchema = new mongoose.Schema({
     address: { type: String },
     phone: { type: String },
     email: { type: String },
-    image: { type: String },
+    image: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"FileUpload"
+     },
     description: { type: String },
     seo_url: { type: String },
     meta_title: { type: String },

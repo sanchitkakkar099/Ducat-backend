@@ -10,9 +10,18 @@ const CourseSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'CourseCategory'
     },
-    image: { type: String },   //replace to fileUpload model obejctId later development
-    cover_image: { type: String },  //replace to filleUpload model objectId later development
-    pdf_file: { type: String },   // --||--
+    image: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "FileUpload"
+    },
+    cover_image: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "FileUpload"
+    },
+    pdf_file: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "FileUpload"
+    },
     order_no: { type: Number },
     status: { type: String },
     popular: { type: String },
@@ -58,7 +67,10 @@ CourseSchema.plugin(mongoosePaginate);
 
 const CourseCategorySchema = new mongoose.Schema({
     name: { type: String },
-    logo: { type: String },
+    logo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "FileUpload"
+    },
     remark: { type: String },
     order_no: { type: Number },
     status: { type: String },

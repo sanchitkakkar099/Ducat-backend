@@ -45,7 +45,14 @@ router.post("/", uploadad.single('file'), async (req, res) => {
     }
 
 })
-
+/**
+ * get the file data by ID
+ * @route GET /uploads
+ * @param {string} id.formData
+ * @group FileUpload - File Upload operation
+ * @returns {object} 200 - file path object
+ * @returns {Error}  Error - Unexpected error
+ */
 router.get("/:id", async (req, res) => {
     try {
         let file = await db.findOne({
