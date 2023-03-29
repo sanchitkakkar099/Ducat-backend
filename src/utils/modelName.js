@@ -8,4 +8,5 @@ module.exports = {
     Enquiry: 'Enquiry',
     Batch: "Batch",
     FileUpload: 'FileUpload',
+    Client: 'Client',
 }
