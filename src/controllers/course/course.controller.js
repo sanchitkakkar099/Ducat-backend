@@ -46,9 +46,16 @@ exports.crouseCreateAndUpdate = async (req, res) => {
 
 exports.getCourseById = async (req, res) => {
     try {
+        console.log(req.params.id)
         let courseObj = await db.findOne({
-            collection: dbModels.Course,
-            query: { _id: req.params.id }
+            collection: models.Course,
+            query: { _id: req.params.id },
+            populate: [
+                { path: 'course_category' },
+                { path: 'image', select: "filepath" },
+                { path: 'cover_image', select: 'filepath' },
+                { path: 'pdf_file', select: 'filepath' },
+            ]
         })
         res.send(HelperUtils.success("Successfully get Course", courseObj));
         return
