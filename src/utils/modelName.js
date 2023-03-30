@@ -9,4 +9,5 @@ module.exports = {
     Batch: "Batch",
     FileUpload: 'FileUpload',
     Client: 'Client',
+    Testimonial: "Testimonial",
 }

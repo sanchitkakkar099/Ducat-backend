@@ -14,5 +14,6 @@ const ClientSchema = new mongoose.Schema({
     isDel: { type: Boolean, default: false },
 }, { timestamps: true });
 
+ClientSchema.plugin(mongoose_paginate);
 
 exports.ClientSchema = ClientSchema
