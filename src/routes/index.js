@@ -7,6 +7,7 @@ const EnquiryRoutes = require("./enquiry");
 const BatchRoutes = require("./batch")
 const fileuplaodsRoutes = require("./fileuploads")
 const clientRoutes = require("./client")
+const testimonialRoutes = require("./testimonial")
 
 
 router.use("/appsetting", appsettingRoutes);
@@ -16,5 +17,6 @@ router.use("/batch", BatchRoutes);
 router.use("/enquiry", EnquiryRoutes);
 router.use("/uploads", fileuplaodsRoutes);
 router.use("/client", clientRoutes)
+router.use("/testimonial", testimonialRoutes);
 
 module.exports = router;
