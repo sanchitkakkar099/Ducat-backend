@@ -43,7 +43,7 @@ router.post("/",
 
 /**
  * get Center by Id
- * @route GET /center/{id}
+ * @route GET /center/byid/{id}
  * @param {string} id.path.required - userId
  * @group Center - operation
  * @returns {object} 200
@@ -51,7 +51,7 @@ router.post("/",
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.get("/:id", CenterController.CenterById);
+router.get("/byid/:id", CenterController.CenterById);
 
 /**
  * DELETE Center by Id
@@ -104,5 +104,14 @@ router.post("/all", CenterController.CenterAll);
  */
 router.post("/list", CenterController.CenterList)
 
+/**
+ * get center list fro drown down purpose
+ * @route GET /center/dropdown
+ * @param {string} status
+ * @group Center - File Upload operation
+ * @returns {object} 200 - file path object
+ * @returns {Error}  Error - Unexpected error
+ */
+router.get("/dropdown", CenterController.CenterForDropDown);
 
 module.exports = router;

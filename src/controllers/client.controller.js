@@ -104,3 +104,26 @@ exports.ClientList = async (req, res) => {
         return;
     }
 }
+
+exports.ClientForDropDown = async (req, res) => {
+    try {
+        let pipeline = []
+        if (req.query.status) {
+            pipeline.push({ $match: { status: req.query.status, isDel: false } });
+        } else pipeline.push({ $match: { status: "Active", isDel: false } });
+        pipeline.push({
+            $project: {
+                label: "$title",
+                value: "$title",
+            }
+        })
+        let result = await db.aggregate({
+            collection: dbModels.Client,
+            pipeline: pipeline
+        })
+        res.send(HelperUtils.success("Successfully get category", result));
+        return
+    } catch (error) {
+        res.send(HelperUtils.error(ERROR_MSG, error.message));
+    }
+}

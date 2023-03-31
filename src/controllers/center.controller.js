@@ -100,3 +100,26 @@ exports.CenterList = async (req, res) => {
         return;
     }
 }
+
+exports.CenterForDropDown = async (req, res) => {
+    try {
+        let pipeline = []
+        if (req.query.status) {
+            pipeline.push({ $match: { status: req.query.status, isDel: false } })
+        } else pipeline.push({ $match: { status: "Active", isDel: false } })
+        pipeline.push({
+            $project: {
+                label: "$name",
+                value: "$name",
+            }
+        })
+        let result = await db.aggregate({
+            collection: dbModels.CourseCategory,
+            pipeline: pipeline
+        })
+        res.send(HelperUtils.success("Successfully get category", result));
+        return
+    } catch (error) {
+        res.send(HelperUtils.error(ERROR_MSG, error.message));
+    }
+}

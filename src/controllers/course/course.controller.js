@@ -115,3 +115,28 @@ exports.CourseList = async (req, res) => {
         return;
     }
 }
+
+exports.CourseForDropDown = async (req, res) => {
+    try {
+        console.log("------------------")
+        let pipeline = []
+        if (req.query.status) {
+            pipeline.push({ $match: { status: req.query.status, isDel: false } })
+        } else pipeline.push({ $match: { status: "Active", isDel: false } });
+        pipeline.push({
+            $project: {
+                label: "$title",
+                value: "$title",
+            }
+        })
+        console.log(JSON.stringify(pipeline, null, 2))
+        let result = await db.aggregate({
+            collection: models.Course,
+            pipeline: pipeline
+        })
+        res.send(HelperUtils.success("Successfully get category", result));
+        return
+    } catch (error) {
+        res.send(HelperUtils.error(ERROR_MSG, error.message));
+    }
+}

@@ -24,7 +24,7 @@ exports.createCategory = async (req, res) => {
             delete req.body._id;
             let updated = await db.findOneAndUpdate({
                 collection: dbModels.CourseCategory,
-                query: { _id: req.body._id },
+                query: { _id: id },
                 update: req.body,
                 options: {
                     new: true
@@ -54,7 +54,7 @@ exports.CategoryAll = async (req, res) => {
 
 exports.CategoryList = async (req, res) => {
     try {
-        let query = {}
+        let query = { isDel: false }
         if (req.body.status) query.status = req.body.status;
         if (req.body.search) query.name = new RegExp(req.body.search, "i")
         let result = await db.paginate({
@@ -98,5 +98,28 @@ exports.CategoryDelete = async (req, res) => {
     } catch (error) {
         res.send(HelperUtils.error(ERROR_MSG, error.message));
         return;
+    }
+}
+
+exports.CategoryForDropDown = async (req, res) => {
+    try {
+        let pipeline = []
+        if (req.query.status) {
+            pipeline.push({ $match: { status: req.query.status, isDel: false } })
+        } else pipeline.push({ $match: { status: "Active", isDel: false } })
+        pipeline.push({
+            $project: {
+                label: "$name",
+                value: "$name",
+            }
+        })
+        let result = await db.aggregate({
+            collection: dbModels.CourseCategory,
+            pipeline: pipeline
+        })
+        res.send(HelperUtils.success("Successfully get category", result));
+        return
+    } catch (error) {
+        res.send(HelperUtils.error(ERROR_MSG, error.message));
     }
 }

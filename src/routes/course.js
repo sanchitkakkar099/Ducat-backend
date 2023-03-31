@@ -56,7 +56,7 @@ router.post("/",
 
 /**
  * get Course detail by course id
- * @route GET /course/{id}
+ * @route GET /course/byid/{id}
  * @param {string} id.path.required - userId
  * @group Course - operation
  * @returns {object} 200
@@ -64,7 +64,7 @@ router.post("/",
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.get("/:id", CourseController.getCourseById);
+router.get("/byid/:id", CourseController.getCourseById);
 
 
 /**
@@ -113,6 +113,21 @@ router.delete("/:id", CourseController.deleteCourse);
 router.post("/list", CourseController.CourseList);
 
 /**
+ * get  course list fro drown down purpose
+ * @route GET /course/dropdown
+ * @param {string} status
+ * @group Course - File Upload operation
+ * @returns {object} 200 - file path object
+ * @returns {Error}  Error - Unexpected error
+ */
+router.get("/dropdown", CourseController.CourseForDropDown);
+
+/**
+ * **************************************************************************************************************************
+ *                                      Course Category
+ */
+
+/**
  * @typedef CourseCategoryModel
  * @property {string} _id
  * @property {string} name
@@ -150,7 +165,7 @@ router.post("/category/all", CourseCategoryController.CategoryAll);
 
 /**
  * GEt Course Category
- * @route GET /course/category/{id}
+ * @route GET /course/category/byid/{id}
  * @param {string} id.path.required - userId
  * @group Course Category - operation
  * @returns {object} 200
@@ -158,7 +173,7 @@ router.post("/category/all", CourseCategoryController.CategoryAll);
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.get("/category/:id", CourseCategoryController.CategoryById)
+router.get("/category/byid/:id", CourseCategoryController.CategoryById)
 
 /**
  * DELETE Course Category
@@ -191,4 +206,14 @@ router.delete("/category/:id", CourseCategoryController.CategoryDelete)
  * @returns {Error}  Error - Unexpected error
  */
 router.post("/category/list", CourseCategoryController.CategoryList)
+
+/**
+ * get  course list fro drown down purpose
+ * @route GET /course/category/dropdown
+ * @param {string} status
+ * @group Course Category - File Upload operation
+ * @returns {object} 200 - file path object
+ * @returns {Error}  Error - Unexpected error
+ */
+router.get("/category/dropdown", CourseCategoryController.CategoryForDropDown);
 module.exports = router;
