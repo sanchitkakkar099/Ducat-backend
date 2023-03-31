@@ -10,6 +10,7 @@ const { BatchSchema } = require("./batch");
 const { FileuploadSchema } = require("./fileupload")
 const { ClientSchema } = require("./client")
 const { TestimonialSchema } = require("./testimonial")
+const { ServiceSchema } = require("./service");
 
 const dbModels = {
     FormHeader: mongoose.model(models.FormHeader, FormHeadersSchema),
@@ -23,6 +24,7 @@ const dbModels = {
     FileUpload: mongoose.model(models.FileUpload, FileuploadSchema),
     Client: mongoose.model(models.Client, ClientSchema),
     Testimonial: mongoose.model(models.Testimonial, TestimonialSchema),
+    Service: mongoose.model(models.Service, ServiceSchema),
 }
 
 

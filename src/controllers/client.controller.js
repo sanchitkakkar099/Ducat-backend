@@ -22,6 +22,7 @@ exports.ClientCreateAndEdit = async (req, res) => {
 
             let updateClient = await db.findOneAndUpdate({
                 collection: dbModels.Client,
+                query: { _id: id },
                 update: req.body,
                 options: { new: true },
             })

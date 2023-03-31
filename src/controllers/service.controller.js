@@ -3,16 +3,16 @@ const dbModels = require("../utils/modelName");
 const HelperUtils = require("../utils/helper")
 const { ERROR_MSG } = require("../utils/const")
 
-exports.TestimonialCreateAndEdit = async (req, res) => {
+exports.ServiceCreateAndEdit = async (req, res) => {
     try {
         if (!req.body._id) {
             //firstc check name already existed in system
             //create new client
-            let newTestimonial = await db.insertOne({
-                collection: dbModels.Testimonial,
+            let newService = await db.insertOne({
+                collection: dbModels.Service,
                 document: req.body
             })
-            res.send(HelperUtils.success("Successfully created", newTestimonial));
+            res.send(HelperUtils.success("Successfully created", newService));
             return;
         }
         else {
@@ -20,13 +20,13 @@ exports.TestimonialCreateAndEdit = async (req, res) => {
             let id = req.body._id;
             delete req.body._id;
 
-            let updateTestimonial = await db.findOneAndUpdate({
-                collection: dbModels.Testimonial,
+            let updateService = await db.findOneAndUpdate({
+                collection: dbModels.Service,
                 query: { _id: id },
                 update: req.body,
                 options: { new: true },
             })
-            res.send(HelperUtils.success("Successfully updated", updateTestimonial));
+            res.send(HelperUtils.success("Successfully updated", updateService));
             return;
         }
     } catch (error) {
@@ -35,17 +35,16 @@ exports.TestimonialCreateAndEdit = async (req, res) => {
     }
 }
 
-exports.TestimonialById = async (req, res) => {
+exports.ServiceById = async (req, res) => {
     try {
-        let testimonial = await db.findOne({
-            collection: dbModels.Testimonial,
+        let service = await db.findOne({
+            collection: dbModels.Service,
             query: { _id: req.params.id },
             populate: [
-                { path: "image", select: "filepath" },
-                { path: "course", select: "title" }
+                { path: "image", select: "filepath" }
             ]
         });
-        res.send(HelperUtils.success("Successfuly get Testimonial", testimonial));
+        res.send(HelperUtils.success("Successfuly get Service", service));
         return;
     } catch (error) {
         res.send(HelperUtils.error(ERROR_MSG, error.message));
@@ -53,34 +52,33 @@ exports.TestimonialById = async (req, res) => {
     }
 }
 
-exports.TestimonialDelete = async (req, res) => {
+exports.ServiceDelete = async (req, res) => {
     try {
         await db.findOneAndUpdate({
-            collection: dbModels.Testimonial,
+            collection: dbModels.Service,
             query: { _id: req.params.id },
             update: { isDel: true, status: "Inactive" }
         })
-        res.send(HelperUtils.success("Successfully deleted Testimonial"));
+        res.send(HelperUtils.success("Successfully deleted Service"));
     } catch (error) {
         res.send(HelperUtils.error(ERROR_MSG, error.message));
         return;
     }
 }
 
-exports.TestimonialAll = async (req, res) => {
+exports.ServiceAll = async (req, res) => {
     try {
         let query = { isDel: false };
         if (req.body.status) query.status = req.body.status;
         if (req.body.search) query.name = new RegExp(req.body.search, "i");
-        let allTestimonials = await db.find({
-            collection: dbModels.Testimonial,
+        let allServices = await db.find({
+            collection: dbModels.Service,
             query: query,
             populate: [
-                { path: "image", select: "filepath" },
-                { path: "course", select: "title" },
+                { path: "image", select: "filepath" }
             ]
         })
-        res.send(HelperUtils.success("Successfully get list", allTestimonials));
+        res.send(HelperUtils.success("Successfully get list", allServices));
         return;
     } catch (error) {
         res.send(HelperUtils.error(ERROR_MSG, error.message));
@@ -88,14 +86,14 @@ exports.TestimonialAll = async (req, res) => {
     }
 }
 
-exports.TestimonialList = async (req, res) => {
+exports.ServiceList = async (req, res) => {
     try {
         let query = { isDel: false }
         if (req.body.status) query.status = req.body.status;
         if (req.body.search) query.name = new RegExp(req.body.search, "i");
 
         let result = await db.paginate({
-            collection: dbModels.Testimonial,
+            collection: dbModels.Service,
             query: query,
             options: {
                 sort: { _id: -1 },
@@ -103,7 +101,6 @@ exports.TestimonialList = async (req, res) => {
                 limit: (req.body.limit) ? req.body.limit : 10,
                 populate: [
                     { path: "image", select: "filepath" },
-                    { path: "course", select: "title" },
                 ]
             }
         })

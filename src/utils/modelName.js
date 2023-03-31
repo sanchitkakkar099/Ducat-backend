@@ -10,4 +10,5 @@ module.exports = {
     FileUpload: 'FileUpload',
     Client: 'Client',
     Testimonial: "Testimonial",
+    Service: 'Service',
 }
