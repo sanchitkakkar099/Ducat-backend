@@ -9,6 +9,7 @@ const fileuplaodsRoutes = require("./fileuploads")
 const clientRoutes = require("./client")
 const testimonialRoutes = require("./testimonial")
 const serviceRoutes = require("./service")
+const galleryRoutes = require("./gallery")
 
 
 router.use("/appsetting", appsettingRoutes);
@@ -20,5 +21,6 @@ router.use("/uploads", fileuplaodsRoutes);
 router.use("/client", clientRoutes)
 router.use("/testimonial", testimonialRoutes);
 router.use("/service", serviceRoutes);
+router.use("/gallery", galleryRoutes);
 
 module.exports = router;

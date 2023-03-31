@@ -11,4 +11,5 @@ module.exports = {
     Client: 'Client',
     Testimonial: "Testimonial",
     Service: 'Service',
+    Gallery: 'Gallery',
 }
