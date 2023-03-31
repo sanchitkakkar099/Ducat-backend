@@ -29,7 +29,7 @@ router.post("/",
 
 /**
  * get client by Id
- * @route GET /client/{id}
+ * @route GET /client/byid/{id}
  * @param {string} id.path.required - userId
  * @group Client - operation
  * @returns {object} 200
@@ -37,7 +37,7 @@ router.post("/",
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.get("/:id", ClientController.ClientById);
+router.get("/byid/:id", ClientController.ClientById);
 
 /**
  * DELETE Client by Id
@@ -91,4 +91,13 @@ router.post("/all", ClientController.ClientAll);
 router.post("/list", ClientController.ClientList)
 
 
+/**
+ * get client list for drown down purpose
+ * @route GET /client/dropdown
+ * @param {string} status
+ * @group Client - File Upload operation
+ * @returns {object} 200 - file path object
+ * @returns {Error}  Error - Unexpected error
+ */
+router.get("/dropdown", ClientController.ClientForDropDown);
 module.exports = router;
