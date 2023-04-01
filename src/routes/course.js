@@ -49,8 +49,8 @@ const CourseCategoryController = require("../controllers/course/course_category"
  * @returns {Error}  Error - Unexpected error
  */
 router.post("/",
-    validator("body", CourseShema.createCourse)
-    , CourseController.crouseCreateAndUpdate);
+    // validator("body", CourseShema.createCourse),
+    CourseController.crouseCreateAndUpdate);
 
 
 
