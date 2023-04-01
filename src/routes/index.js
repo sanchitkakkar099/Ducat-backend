@@ -10,6 +10,7 @@ const clientRoutes = require("./client")
 const testimonialRoutes = require("./testimonial")
 const serviceRoutes = require("./service")
 const galleryRoutes = require("./gallery")
+const registrationRoutes = require("./registrations")
 
 
 router.use("/appsetting", appsettingRoutes);
@@ -22,5 +23,6 @@ router.use("/client", clientRoutes)
 router.use("/testimonial", testimonialRoutes);
 router.use("/service", serviceRoutes);
 router.use("/gallery", galleryRoutes);
+router.use("/registeration", registrationRoutes);
 
 module.exports = router;

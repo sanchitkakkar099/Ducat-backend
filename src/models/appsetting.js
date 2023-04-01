@@ -1,27 +1,9 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const formHeadersSchema = new mongoose.Schema({
-    name: { type: String },
-    display_Name: { type: String },
-    screen: { type: String }
-}, { timestamps: true, strict: false })
-
+AppSettingSchema = new mongoose.Schema({
+    settingKey: { type: String, required: true },
+    settingValue: mongoose.Schema.Types.Mixed
+}, { timestamps: true });
 
 
-const FormFieldsSchema = new mongoose.Schema({
-    name: { type: String },
-    display_Name: { type: String },
-    screen: { type: String },
-    field_name: { type: String },
-    field_type: { type: String },
-    section: {
-        type: mongoose.Types.ObjectId,
-        ref: "FormHeader"
-    }
-
-}, { timestamps: true, strict: false })
-
-
-
-exports.FormHeadersSchema = formHeadersSchema
-exports.FormFieldsSchema = FormFieldsSchema
+exports.AppSettingSchema = AppSettingSchema

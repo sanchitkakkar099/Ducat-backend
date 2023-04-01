@@ -21,6 +21,7 @@ exports.CenterCreateAndEdit = async (req, res) => {
 
             let updateCenter = await db.findOneAndUpdate({
                 collection: dbModels.Center,
+                query: { _id: id },
                 update: req.body,
                 options: { new: true },
             })

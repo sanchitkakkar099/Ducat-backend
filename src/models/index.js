@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const models = require("../utils/modelName")
-const { FormFieldsSchema, FormHeadersSchema } = require("./appsetting")
+const { AppSettingSchema } = require("./appsetting")
 const { CourseSchema, CourseCategorySchema, CourseDropDownSchema } = require("./course")
 const { CenterSchema } = require("./center")
 const { EnquiriesSchema } = require("./enquery");
@@ -12,10 +12,8 @@ const { ClientSchema } = require("./client")
 const { TestimonialSchema } = require("./testimonial")
 const { ServiceSchema } = require("./service");
 const { GallerySchema } = require("./gallery")
-
+const { RegistrationSchema } = require("./registration")
 const dbModels = {
-    FormHeader: mongoose.model(models.FormHeader, FormHeadersSchema),
-    FormField: mongoose.model(models.FormField, FormFieldsSchema),
     Course: mongoose.model(models.Course, CourseSchema),
     CourseCategory: mongoose.model(models.CourseCategory, CourseCategorySchema),
     CourseDropDown: mongoose.model(models.CourseDropDown, CourseDropDownSchema),
@@ -27,6 +25,8 @@ const dbModels = {
     Testimonial: mongoose.model(models.Testimonial, TestimonialSchema),
     Service: mongoose.model(models.Service, ServiceSchema),
     Gallery: mongoose.model(models.Gallery, GallerySchema),
+    Registration: mongoose.model(models.Registration, RegistrationSchema),
+    AppSetting: mongoose.model(models.AppSetting, AppSettingSchema),
 }
 
 

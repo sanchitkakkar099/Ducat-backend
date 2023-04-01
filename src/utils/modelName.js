@@ -1,6 +1,5 @@
 module.exports = {
-    FormHeader: 'FormHeader',
-    FormField: 'FormField',
+    AppSetting: 'AppSetting',
     Course: 'Course',
     CourseCategory: 'CourseCategory',
     CourseDropDown: 'CourseDropDown',
@@ -12,4 +11,5 @@ module.exports = {
     Testimonial: "Testimonial",
     Service: 'Service',
     Gallery: 'Gallery',
+    Registration: 'Registration',
 }

@@ -2,23 +2,34 @@ const HelperUtils = require("../utils/helper")
 
 const db = require("../utils/mongooseMethods")
 const dbModels = require("../utils/modelName")
+const constants = require("../utils/const")
 
-exports.formHeadersCreate = async (req, res) => {
+exports.ConfigurationsEmail = async (req, res) => {
     try {
+        let data = await db.findOne({
+            collection: dbModels.AppSetting,
+            query: { settingKey: constants.ConfigurationEmail },
+            project: 'settingValue _id'
 
-        let formHeaders = await db.insertOne(dbModels.FormHeader, req.body)
-        res.send(HelperUtils.success("Successfully created", formHeaders));
+        })
+        if (data && data.settingValue) data = { ...data.settingValue }
+        res.send(HelperUtils.success("successfully", data));
     } catch (error) {
-        res.send(HelperUtils.error("Internal Server Error", error.message, 500));
+        HelperUtils.error("Internal Server Error", error.message);
     }
 }
 
-
-exports.createFormFeild = async (req, res) => {
+exports.ConfigurationsEmailUpdate = async (req, res) => {
     try {
-        let fields = await db.insertOne(dbModels.FormField, req.body, {});
-        res.send(HelperUtils.success("Successfully created", fields));
+        let data = await db.findOneAndUpdate({
+            collection: dbModels.AppSetting,
+            query: { settingKey: constants.ConfigurationEmail },
+            update: { settingValue: req.body, settingKey: constants.ConfigurationEmail },
+            options: { new: true, upsert: true }
+        })
+
+        res.send(HelperUtils.success("successfully updated", data));
     } catch (error) {
-        res.send(HelperUtils.error("Internal Server Error", error.message));
+        HelperUtils.error("Internal Server Error", error.message);
     }
 }
