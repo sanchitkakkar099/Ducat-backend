@@ -57,6 +57,10 @@ exports.getCourseById = async (req, res) => {
                 { path: 'pdf_file', select: 'filepath' },
             ]
         })
+        if (courseObj && courseObj.course_category) courseObj.course_category = {
+            label: courseObj.course_category.name,
+            value: courseObj.course_category._id
+        }
         res.send(HelperUtils.success("Successfully get Course", courseObj));
         return
     } catch (error) {
