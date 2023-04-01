@@ -102,7 +102,12 @@ exports.CourseList = async (req, res) => {
             collection: models.Course,
             query: query,
             options: {
-                populate: { path: 'course_category', select: "name" },
+                populate: [
+                    { path: 'course_category', select: "name" },
+                    { path: "image", select: "filepath path fieldname originalname mimetype" },
+                    { path: "cover_image", select: "filepath path fieldname originalname mimetype" },
+                    { path: "pdf_file", select: "filepath path fieldname originalname mimetype" }
+                ],
                 page: (req.body.page) ? req.body.page : 1,
                 limit: (req.body.limit) ? req.body.limit : 10,
                 sort: { _id: -1 }
