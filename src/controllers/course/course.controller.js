@@ -61,6 +61,15 @@ exports.getCourseById = async (req, res) => {
             label: courseObj.course_category.name,
             value: courseObj.course_category._id
         }
+
+        if (courseObj && courseObj.status) courseObj.status = {
+            label: courseObj.status,
+            value: courseObj.status
+        }
+        if (courseObj && courseObj.popular) courseObj.popular = {
+            label: courseObj.popular,
+            value: courseObj.popular
+        }
         res.send(HelperUtils.success("Successfully get Course", courseObj));
         return
     } catch (error) {
