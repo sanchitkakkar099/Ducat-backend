@@ -113,7 +113,7 @@ exports.CategoryForDropDown = async (req, res) => {
         pipeline.push({
             $project: {
                 label: "$name",
-                value: "$name",
+                value: "$_id",
             }
         })
         let result = await db.aggregate({
