@@ -43,7 +43,8 @@ exports.CategoryAll = async (req, res) => {
     try {
         let result = await db.find({
             collection: dbModels.CourseCategory,
-            query: (req.body.search) ? { name: new RegExp(req.body.search, "i") } : {}
+            query: (req.body.search) ? { name: new RegExp(req.body.search, "i") } : {},
+            populate: { path: "logo" }
         })
         res.send(HelperUtils.success("Successfully Retrieved list", result));
         return
@@ -63,7 +64,8 @@ exports.CategoryList = async (req, res) => {
             options: {
                 page: (req.body.page) ? req.body.page : 1,
                 limit: (req.body.limit) ? req.body.limit : 10,
-                sort: { _id: -1 }
+                sort: { _id: -1 },
+                populate: { path: "logo" }
             }
         })
         res.send(HelperUtils.success("Successfully get category list", result));
@@ -76,7 +78,8 @@ exports.CategoryById = async (req, res) => {
     try {
         let category = await db.findOne({
             collection: dbModels.CourseCategory,
-            query: { _id: req.params.id }
+            query: { _id: req.params.id },
+            populate: { path: "logo" }
         })
         res.send(HelperUtils.success("Successfully get category", category))
         return;

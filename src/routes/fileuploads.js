@@ -21,6 +21,7 @@ const { ERROR_MSG } = require("../utils/const")
  *  3: gallery,
  *  4: blog
  *  5: center
+ *  6:course category
  *  99: default
  * @group FileUpload - File Upload operation
  * @returns {object} 200 - file path object
