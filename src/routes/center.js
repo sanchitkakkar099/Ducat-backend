@@ -15,7 +15,7 @@ const validator = require("../middleware/validator")
  * @property {string} description
  * @property {string} seo_url
  * @property {string} meta_title
- * @property {string} meta_Keyword
+ * @property {string} meta_keyword
  * @property {string} meta_description
  * @property {string} meta_section
  * @property {string} head_css

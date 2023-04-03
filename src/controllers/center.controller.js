@@ -38,7 +38,10 @@ exports.CenterById = async (req, res) => {
     try {
         let center = await db.findOne({
             collection: dbModels.Center,
-            query: { _id: req.params.id }
+            query: { _id: req.params.id },
+            populate: [
+                { path: "image", select: "fieldname originalname mimetype filename filepath size" }
+            ]
         });
         res.send(HelperUtils.success("Successfuly get Ecnter", center));
         return;
@@ -69,7 +72,10 @@ exports.CenterAll = async (req, res) => {
         if (req.body.search) query.title = new RegExp(req.body.search, "i");
         let allCenters = await db.find({
             collection: dbModels.Center,
-            query: query
+            query: query,
+            populate: [
+                { path: "image", select: "fieldname originalname mimetype filename filepath size" }
+            ],
         })
         res.send(HelperUtils.success("Successfully get list", allCenters));
         return;
@@ -92,6 +98,9 @@ exports.CenterList = async (req, res) => {
                 sort: { _id: -1 },
                 page: (req.body.page) ? req.body.page : 1,
                 limit: (req.body.limit) ? req.body.limit : 10,
+                populate: [
+                    { path: "image", select: "fieldname originalname mimetype filename filepath size" }
+                ]
             }
         })
         res.send(HelperUtils.success("Successfully get list", result));
