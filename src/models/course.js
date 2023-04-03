@@ -35,7 +35,7 @@ const CourseSchema = new mongoose.Schema({
         value: { type: String }
     }],
     seo_title: { type: String },
-    meta_Keyword: {
+    meta_keyword: {
         type: String
     },
     meta_description: {

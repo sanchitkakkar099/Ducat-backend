@@ -28,7 +28,7 @@ const CourseCategoryController = require("../controllers/course/course_category"
  * @property {Array<subModels>} course_content
  * @property {Array<subModels>} course_topic
  * @property {string} seo_title
- * @property {string} meta_Keyword
+ * @property {string} meta_keyword
  * @property {string} meta_description
  * @property {string} meta_section
  * @property {string} head_css
