@@ -8,7 +8,7 @@ exports.crouseCreateAndUpdate = async (req, res) => {
         if (!req.body._id) {
             //check same course available
             let course = await db.findOne({ collection: models.Course, query: { title: req.body.title } })
-            if (!course) {
+            if (course) {
                 res.send(HelperUtils.error("Already Course available", {}));
                 return
             }
