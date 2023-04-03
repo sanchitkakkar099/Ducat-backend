@@ -136,7 +136,7 @@ exports.CourseList = async (req, res) => {
 
 exports.CourseForDropDown = async (req, res) => {
     try {
-        console.log("------------------")
+        
         let pipeline = []
         if (req.query.status) {
             pipeline.push({ $match: { status: req.query.status, isDel: false } })
@@ -144,7 +144,7 @@ exports.CourseForDropDown = async (req, res) => {
         pipeline.push({
             $project: {
                 label: "$title",
-                value: "$title",
+                value: "$_id",
             }
         })
         console.log(JSON.stringify(pipeline, null, 2))

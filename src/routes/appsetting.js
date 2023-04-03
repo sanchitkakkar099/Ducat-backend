@@ -35,4 +35,31 @@ router.get("/configuratoin/email", appSettingController.ConfigurationsEmail);
 router.post("/configuratoin/email", appSettingController.ConfigurationsEmailUpdate);
 
 
+/**
+ * get setting value
+ * @route GET /appsetting/bykey/{key}
+ * @param {string} key.path.required - string
+ * @group AppSetting - operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.get("/bykey/:key", appSettingController.GetSettingValueByKey);
+
+
+/**
+ * update the configuration email
+ * @route POST /appsetting/bykey/{key}
+ * @param {string} key.param.required - keyname
+ * @param {string} settingValue.body.required - Edit User Object
+ * @group AppSetting - operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post("/bykey/{key}", appSettingController.UpdateSettingByKey);
+
+
 module.exports = router

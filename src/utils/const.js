@@ -15,6 +15,7 @@ exports.FileDirectoryType = Object.freeze({
 })
 
 exports.ConfigurationEmail = Object.freeze("CONFIGURATIONEMAIL")
+exports.AboutUs = Object.freeze("ABOUTUS");
 
 
 exports.ERROR_MSG = "Internal Server Error"

@@ -38,8 +38,8 @@ const validator = require("../middleware/validator")
  * @returns {Error}  Error - Unexpected error
  */
 router.post("/",
-    validator('body', centerSchema.createEditCenter)
-    , CenterController.CenterCreateAndEdit);
+    //validator('body', centerSchema.createEditCenter),
+    CenterController.CenterCreateAndEdit);
 
 /**
  * get Center by Id

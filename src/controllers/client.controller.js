@@ -115,7 +115,7 @@ exports.ClientForDropDown = async (req, res) => {
         pipeline.push({
             $project: {
                 label: "$title",
-                value: "$title",
+                value: "$_id",
             }
         })
         let result = await db.aggregate({

@@ -33,3 +33,32 @@ exports.ConfigurationsEmailUpdate = async (req, res) => {
         HelperUtils.error("Internal Server Error", error.message);
     }
 }
+exports.GetSettingValueByKey = async (req, res) => {
+    try {
+        let data = await db.findOne({
+            collection: dbModels.AppSetting,
+            query: { settingKey: constants[req.params.key] },
+            project: 'settingValue _id'
+
+        })
+        // if (data && data.settingValue) data = { ...data.settingValue }
+        res.send(HelperUtils.success("successfully", data));
+    } catch (error) {
+        HelperUtils.error("Internal Server Error", error.message);
+    }
+}
+
+exports.UpdateSettingByKey = async (req, res) => {
+    try {
+        let data = await db.findOneAndUpdate({
+            collection: dbModels.AppSetting,
+            query: { settingKey: constants[req.params.key] },
+            update: { settingValue: req.body, settingKey: constants[req.params.key] },
+            options: { new: true, upsert: true }
+        })
+
+        res.send(HelperUtils.success("successfully updated", data));
+    } catch (error) {
+        HelperUtils.error("Internal Server Error", error.message);
+    }
+}
