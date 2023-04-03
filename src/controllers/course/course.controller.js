@@ -8,7 +8,7 @@ exports.crouseCreateAndUpdate = async (req, res) => {
         if (!req.body._id) {
             //check same course available
             let course = await db.findOne({ collection: models.Course, query: { title: req.body.title } })
-            if (course) {
+            if (!course) {
                 res.send(HelperUtils.error("Already Course available", {}));
                 return
             }
@@ -26,7 +26,7 @@ exports.crouseCreateAndUpdate = async (req, res) => {
                 collection: models.Course,
                 query: { _id: req.body._id }
             });
-            if (course) {
+            if (!course) {
                 res.send(HelperUtils.error("Course Not Found", {}));
                 return;
             }
@@ -136,7 +136,7 @@ exports.CourseList = async (req, res) => {
 
 exports.CourseForDropDown = async (req, res) => {
     try {
-        
+
         let pipeline = []
         if (req.query.status) {
             pipeline.push({ $match: { status: req.query.status, isDel: false } })
