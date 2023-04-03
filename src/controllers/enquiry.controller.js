@@ -46,6 +46,19 @@ exports.EnquiryById = async (req, res) => {
                 { path: "course" }
             ]
         })
+        if (enquiry && enquiry.course) enquiry.course = {
+            label: enquiry.course.title,
+            value: enquiry.course._id
+        }
+        if (enquiry && enquiry.center) enquiry.center = {
+            label: enquiry.center.title,
+            value: enquiry.center._id
+        }
+
+        if (enquiry && enquiry.status) enquiry.status = {
+            label: enquiry.status,
+            value: enquiry.status
+        }
         res.send(HelperUtils.success("Successfully get Enquiry", enquiry));
         return;
     } catch (error) {
