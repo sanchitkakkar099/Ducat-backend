@@ -27,7 +27,7 @@ module.exports = {
             })
         ).optional(),
         seo_title: Joi.string().required(),
-        meta_Keyword: Joi.string().required(),
+        meta_keyword: Joi.string().required(),
         meta_description: Joi.string().required(),
         meta_section: Joi.string().required(),
         head_css: Joi.string().required(),

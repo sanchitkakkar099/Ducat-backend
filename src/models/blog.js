@@ -19,7 +19,7 @@ const BlogSchema = new mongoose.Schema({
     long_desc: { type: String },
     seo_url: { type: String },
     meta_title: { type: String },
-    meta_Keyword: {
+    meta_keyword: {
         type: String
     },
     meta_description: {
@@ -57,7 +57,7 @@ const Blog_CategorySchema = new mongoose.Schema({
     description: { type: String },
     seo_url: { type: String },
     meta_title: { type: String },
-    meta_Keyword: {
+    meta_keyword: {
         type: String
     },
     meta_description: {
