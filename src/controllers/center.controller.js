@@ -120,11 +120,11 @@ exports.CenterForDropDown = async (req, res) => {
         pipeline.push({
             $project: {
                 label: "$name",
-                value: "$name",
+                value: "$_id",
             }
         })
         let result = await db.aggregate({
-            collection: dbModels.CourseCategory,
+            collection: dbModels.Center,
             pipeline: pipeline
         })
         res.send(HelperUtils.success("Successfully get category", result));
