@@ -12,7 +12,7 @@ const BatchSchema = new mongoose.Schema({
     },
     trainer: { type: String },
     start_date: { type: Date, default: new Date() },
-    end_date: { type: Date, default: new Date() },
+    timing: { type: Date, default: new Date() },
     remark: { type: String },
     status: { type: String },
     isDel: { type: Boolean, default: false }

@@ -11,7 +11,7 @@ const validator = require("../middleware/validator")
  * @property {string} center
  * @property {string} trainer
  * @property {string} star_date
- * @property {string} end_date
+ * @property {string} timing
  * @property {string} remark
  * @property {string} status
  */
@@ -31,7 +31,7 @@ router.post("/",
 
 /**
  * get Batch by Id
- * @route GET /batch/{id}
+ * @route GET /batch/byid/{id}
  * @param {string} id.path.required - userId
  * @group Batch - operation
  * @returns {object} 200
@@ -39,7 +39,7 @@ router.post("/",
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.get("/:id", BatchController.BatchById);
+router.get("/byid/:id", BatchController.BatchById);
 
 /**
  * DELETE Batch by Id

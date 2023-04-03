@@ -31,7 +31,7 @@ router.post("/",
 
 /**
  * get Enquiry by Id
- * @route GET /enquiry/{id}
+ * @route GET /enquiry/byid/{id}
  * @param {string} id.path.required - userId
  * @group Enquiry - operation
  * @returns {object} 200
@@ -39,7 +39,7 @@ router.post("/",
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.get("/:id", EnquiryController.EnquiryById);
+router.get("/byid/:id", EnquiryController.EnquiryById);
 
 /**
  * DELETE Enquiry by Id
