@@ -11,6 +11,7 @@ const testimonialRoutes = require("./testimonial")
 const serviceRoutes = require("./service")
 const galleryRoutes = require("./gallery")
 const registrationRoutes = require("./registrations")
+const adminroutes = require("./admin");
 
 
 router.use("/appsetting", appsettingRoutes);
@@ -24,5 +25,6 @@ router.use("/testimonial", testimonialRoutes);
 router.use("/service", serviceRoutes);
 router.use("/gallery", galleryRoutes);
 router.use("/registeration", registrationRoutes);
+router.use("/admin", adminroutes);
 
 module.exports = router;

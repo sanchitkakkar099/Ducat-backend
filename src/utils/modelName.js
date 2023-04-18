@@ -12,4 +12,5 @@ module.exports = {
     Service: 'Service',
     Gallery: 'Gallery',
     Registration: 'Registration',
+    User: 'User',
 }
