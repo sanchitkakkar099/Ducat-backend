@@ -1,3 +1,6 @@
+const bycrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 exports.success = (message = '', data = {}, code = 200) => {
   return {
     error: false,
@@ -36,4 +39,18 @@ exports.errorRes = (res, message = '', data = {}, code = 400) => {
     code
   })
   return;
+}
+
+exports.bycryptpassverify = async (password, hash) => {
+  return await bycrypt.compare(password, hash);
+}
+
+exports.jwtSign = async (payload) => {
+  return await jwt.sign(payload,
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRY })
+}
+
+exports.jwtVerify = async (token) => {
+  return await jwt.verify(token, process.env.JWT_SECRET)
 }

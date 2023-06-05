@@ -34,19 +34,17 @@ exports.adminlogin = async (req, res) => {
         let emailvalid = await db.findOne({
             collection: dbModels.User,
             query: { email: req.body.email.toLowerCase() },
-            project: { email: 1, lname: 1, fname: 1, password: 1 }
+            project: { email: 1, lname: 1, fname: 1, password: 1, role: 1 }
         })
-        if (!emailvalid) HelperUtils.errorRes(res, "Email Invalid", {})
-        let passwordvalid = await bycrypt.compare(req.body.password, emailvalid.password);
-        if (!passwordvalid) HelperUtils.errorRes(res, "Invalid password", {})
-        let token = await jwt.sign(emailvalid,
-            process.env.JWT_SECRET,
-            { expiresIn: '7d' })
+        if (!emailvalid) return HelperUtils.errorRes(res, "Invalid email address", {})
+        let passwordvalid = await HelperUtils.bycryptpassverify(req.body.password, emailvalid.password)
+        if (!passwordvalid) return HelperUtils.errorRes(res, "Invalid password", {})
+        let token = await HelperUtils.jwtSign(emailvalid);
         res.send(HelperUtils.success("Successfully login", { token }))
         return;
     } catch (error) {
         console.log(error)
-        HelperUtils.errorRes(res, "internal Server Error", {}, 400);
+        HelperUtils.errorRes(res, "internal Server Error", error.message, 400);
         return
     }
 }

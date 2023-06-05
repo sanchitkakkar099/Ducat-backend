@@ -2,6 +2,7 @@ const router = require("express").Router();
 const BatchController = require("../controllers/batch.controller");
 
 const validator = require("../middleware/validator")
+const auth = require("../middleware/auth").auth
 
 
 
