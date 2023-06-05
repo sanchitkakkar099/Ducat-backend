@@ -1,8 +1,8 @@
-const router = require("express").Router()
+const router = require("express").Router();
 const CourseController = require("../controllers/course/course.controller");
-const CourseShema = require("../validators/courseSchema")
-const validator = require("../middleware/validator")
-const CourseCategoryController = require("../controllers/course/course_category")
+const CourseShema = require("../validators/courseSchema");
+const validator = require("../middleware/validator");
+const CourseCategoryController = require("../controllers/course/course_category");
 
 /**
  * @typedef subModels
@@ -16,13 +16,13 @@ const CourseCategoryController = require("../controllers/course/course_category"
  * @property {string} title
  * @property {string} subtitle
  * @property {string} seo_url
- * @property {string} redirect_url 
+ * @property {string} redirect_url
  * @property {string} course_category
  * @property {string} image
  * @property {string} cover_image
  * @property {string} pdf_file
  * @property {number} order_no
- * @property {string} status 
+ * @property {string} status
  * @property {string} popular
  * @property {string} description
  * @property {Array<subModels>} course_content
@@ -48,11 +48,11 @@ const CourseCategoryController = require("../controllers/course/course_category"
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.post("/",
-    // validator("body", CourseShema.createCourse),
-    CourseController.crouseCreateAndUpdate);
-
-
+router.post(
+  "/",
+  // validator("body", CourseShema.createCourse),
+  CourseController.crouseCreateAndUpdate
+);
 
 /**
  * get Course detail by course id
@@ -65,7 +65,6 @@ router.post("/",
  * @returns {Error}  Error - Unexpected error
  */
 router.get("/byid/:id", CourseController.getCourseById);
-
 
 /**
  * Edit Course
@@ -80,7 +79,6 @@ router.get("/byid/:id", CourseController.getCourseById);
  */
 router.put("/:id");
 
-
 /**
  * delete Course
  * @route DELETE /course/{id}
@@ -92,7 +90,6 @@ router.put("/:id");
  * @returns {Error}  Error - Unexpected error
  */
 router.delete("/:id", CourseController.deleteCourse);
-
 
 /**
  * @typedef CoursePaginationModel
@@ -132,7 +129,7 @@ router.get("/dropdown", CourseController.CourseForDropDown);
  * @property {string} _id
  * @property {string} name
  * @property {string} logo
- * @property {string} remark - 
+ * @property {string} remark -
  * @property {string} status
  */
 /**
@@ -173,7 +170,7 @@ router.post("/category/all", CourseCategoryController.CategoryAll);
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.get("/category/byid/:id", CourseCategoryController.CategoryById)
+router.get("/category/byid/:id", CourseCategoryController.CategoryById);
 
 /**
  * DELETE Course Category
@@ -185,7 +182,7 @@ router.get("/category/byid/:id", CourseCategoryController.CategoryById)
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.delete("/category/:id", CourseCategoryController.CategoryDelete)
+router.delete("/category/:id", CourseCategoryController.CategoryDelete);
 
 /**
  * @typedef categoryPaginationModel
@@ -205,7 +202,7 @@ router.delete("/category/:id", CourseCategoryController.CategoryDelete)
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.post("/category/list", CourseCategoryController.CategoryList)
+router.post("/category/list", CourseCategoryController.CategoryList);
 
 /**
  * get  course list fro drown down purpose
@@ -217,7 +214,6 @@ router.post("/category/list", CourseCategoryController.CategoryList)
  */
 router.get("/category/dropdown", CourseCategoryController.CategoryForDropDown);
 
-
 /**
  * get  course list fro drown down purpose
  * @route GET /course/category/home/list
@@ -225,5 +221,8 @@ router.get("/category/dropdown", CourseCategoryController.CategoryForDropDown);
  * @returns {object} 200 - file path object
  * @returns {Error}  Error - Unexpected error
  */
-router.get("/category/home/list", CourseCategoryController.getcoursescategories);
+router.get(
+  "/category/home/list",
+  CourseCategoryController.getcoursescategories
+);
 module.exports = router;
