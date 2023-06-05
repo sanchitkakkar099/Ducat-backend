@@ -126,3 +126,26 @@ exports.CategoryForDropDown = async (req, res) => {
         res.send(HelperUtils.error(ERROR_MSG, error.message));
     }
 }
+
+
+exports.getcoursescategories = async (req, res) => {
+    try {
+        let categories = await db.find({
+            collection: dbModels.CourseCategory,
+            query: {},
+            project: { name: 1 }
+        })
+        for (let i = 0; i < categories.length; i++) {
+            const element = categories[i];
+            categories[i].course = await db.find({
+                collection: dbModels.Course,
+                query: { course_category: element._id },
+                project: { title: 1 }
+            })
+        }
+        res.send(HelperUtils.success("Successfully get list", categories))
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(HelperUtils.error(ERROR_MSG, error.message));
+    }
+}

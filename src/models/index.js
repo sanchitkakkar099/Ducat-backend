@@ -13,6 +13,7 @@ const { TestimonialSchema } = require("./testimonial")
 const { ServiceSchema } = require("./service");
 const { GallerySchema } = require("./gallery")
 const { RegistrationSchema } = require("./registration")
+const { UserSchema } = require("./user")
 const dbModels = {
     Course: mongoose.model(models.Course, CourseSchema),
     CourseCategory: mongoose.model(models.CourseCategory, CourseCategorySchema),
@@ -27,6 +28,7 @@ const dbModels = {
     Gallery: mongoose.model(models.Gallery, GallerySchema),
     Registration: mongoose.model(models.Registration, RegistrationSchema),
     AppSetting: mongoose.model(models.AppSetting, AppSettingSchema),
+    User: mongoose.model(models.User, UserSchema)
 }
 
 
