@@ -149,3 +149,43 @@ exports.getcoursescategories = async (req, res) => {
         res.status(400).send(HelperUtils.error(ERROR_MSG, error.message));
     }
 }
+
+exports.categorycourseslistwithpagination = async (req, res) => {
+    try {
+
+        let query = { isDel: false }
+        if (req.body.status) query.status = req.body.status;
+        if (req.body.search) query.name = new RegExp(req.body.search, "i")
+        let result = await db.paginate({
+            collection: dbModels.CourseCategory,
+            query: query,
+            options: {
+                page: (req.body.page) ? req.body.page : 1,
+                limit: (req.body.limit) ? req.body.limit : 10,
+                //sort: { _id: -1 },
+                populate: { path: "logo" },
+                lean: true
+            }
+        })
+
+        for (let i = 0; i < result.docs.length; i++) {
+            const element = result.docs[i];
+            result.docs[i].course = await db.find({
+                collection: dbModels.Course,
+                query: { course_category: element._id },
+                //project: { title: 1 }
+                populate: [
+                    //{ path: 'course_category', select: "name" },
+                    { path: "image", select: "filepath path fieldname originalname mimetype" },
+                    { path: "cover_image", select: "filepath path fieldname originalname mimetype" },
+                    { path: "pdf_file", select: "filepath path fieldname originalname mimetype" }
+                ],
+            })
+
+        }
+        res.send(HelperUtils.success("successfully get list", result))
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(HelperUtils.error(ERROR_MSG, error.message));
+    }
+}

@@ -225,4 +225,16 @@ router.get(
   "/category/home/list",
   CourseCategoryController.getcoursescategories
 );
+
+/**
+ * POST  course list fro drown down purpose
+ * @route POST /course/category/drop/down/list
+ * @group Course Category - File Upload operation
+ * @returns {object} 200 - file path object
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post(
+  "/category/drop/down/list",
+  CourseCategoryController.categorycourseslistwithpagination
+);
 module.exports = router;
