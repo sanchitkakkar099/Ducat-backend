@@ -25,7 +25,7 @@ require("./loaders/server")(app);
 require("./loaders/swagger")(app);
 require("./loaders/logger")(app)
 
-const port = process.env.PORt || 5055
+const port = process.env.PORT || 5055
 Promise.all([connectDB()]).then(() => {
     server.listen(port, () => {
         console.log(`Server started on port ${process.env.PORT} 🚀`)

@@ -6,6 +6,7 @@ const uploadad = require("../middleware/multer");
 const path = require("path")
 const HelperUtils = require("../utils/helper")
 const { ERROR_MSG } = require("../utils/const")
+const s3uploadad = require("../middleware/multers3")
 
 
 
@@ -27,11 +28,15 @@ const { ERROR_MSG } = require("../utils/const")
  * @returns {object} 200 - file path object
  * @returns {Error}  Error - Unexpected error
  */
-router.post("/", uploadad.single('file'), async (req, res) => {
+router.post("/", s3uploadad.single('file'), async (req, res) => {
     try {
-
-        req.file.filepath = req.file.path.replace(/\\/g, '/')
-        req.file.filepath = path.join(__dirname, "../../", req.file.filepath)
+        console.log("-------------", req.file)
+        // req.file.filepath = req.file.path.replace(/\\/g, '/')
+        // req.file.filepath = path.join(__dirname, "../../", req.file.filepath)
+        req.file.filepath = req.file.location
+        req.file.originalname = req.file.originalname
+        req.file.mimetype = req.file.mimetype
+        req.file.size = req.file.size
 
         let file = await db.insertOne({
             collection: dbModels.FileUpload,
@@ -48,8 +53,8 @@ router.post("/", uploadad.single('file'), async (req, res) => {
 })
 /**
  * get the file data by ID
- * @route GET /uploads
- * @param {string} id.formData
+ * @route GET /uploads/{id}
+ * @param {string} id.path.required - Admin Id
  * @group FileUpload - File Upload operation
  * @returns {object} 200 - file path object
  * @returns {Error}  Error - Unexpected error
