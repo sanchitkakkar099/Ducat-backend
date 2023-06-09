@@ -100,24 +100,85 @@ exports.BatchAll = async (req, res) => {
 
 exports.BatchList = async (req, res) => {
     try {
-        let query = { isDel: false }
-        if (req.body.status) query.status = req.body.status
 
-        if (req.body.center_id) { query.center = req.body.center_id }
+        let querymatch = { $match: { isDel: false } }
+        if (req.body.status)
+            querymatch.$match.status = req.body.status;
 
-        let result = await db.paginate({
-            collection: dbModels.Batch,
-            query: query,
-            options: {
-                page: (req.body.page) ? req.body.page : 1,
-                limit: (req.body.limit) ? req.body.limit : 10,
-                sort: { _id: -1 },
-                populate: [
-                    { path: "center" },
-                    { path: "course", populate: [{ path: "image", select: "filepath path fieldname originalname mimetype" }] }
-                ]
+        if (req.body.center_id)
+            query.$match.center = req.body.center_id;
+
+        let pipeline = [
+            { ...querymatch },
+            {
+                $lookup: {
+                    from: 'centers',
+                    localField: 'center',
+                    foreignField: '_id',
+                    as: 'center',
+                }
+            },
+            {
+                $unwind: "$center"
+            },
+            {
+                $lookup: {
+                    from: 'courses',
+                    localField: 'course',
+                    foreignField: '_id',
+                    as: 'course',
+                }
+            },
+            {
+                $unwind: "$course"
+            },
+            {
+                $lookup: {
+                    from: 'fileuploads',
+                    localField: 'course.image',
+                    foreignField: '_id',
+                    as: 'course.image',
+                }
+            },
+            {
+                $unwind: "$course.image"
             }
+        ]
+
+        if (req.body.search) {
+            pipeline.push({
+                $match: {
+                    $or: [
+                        { 'course.title': new RegExp(req.body.search, 'i') },
+                        { 'center.title': new RegExp(req.body.search, 'i') },
+                        { 'trainer': new RegExp(req.body.search, 'i') },
+                    ]
+                }
+            })
+        }
+
+        let data = await db.aggregate({
+            collection: dbModels.Batch,
+            pipeline: pipeline
         })
+
+        let page = 1, limit = 10;
+        if (req.body.page) page = req.body.page;
+        if (req.body.limit) limit = req.body.limit;
+        let pages = Math.ceil(data.length / limit);
+        let total = data.length;
+        page = 1;
+        if (req.body.page) {
+            page = req.body.page;
+        }
+        data = data.slice((page - 1) * limit, page * limit);
+        let result = {
+            docs: data,
+            page: page,
+            pages,
+            total,
+            limit: limit,
+        };
         res.send(HelperUtils.success("Successfully get Batch", result));
         return;
     } catch (error) {
