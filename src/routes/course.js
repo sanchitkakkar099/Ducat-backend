@@ -120,6 +120,23 @@ router.post("/list", CourseController.CourseList);
 router.get("/dropdown", CourseController.CourseForDropDown);
 
 /**
+ * @typedef relatedcoursebycategory
+ * @property {string} categoryid
+ */
+/**
+ * POST  course list from category id
+ * @route POST /course/list/relatedcategory
+ * @param {relatedcoursebycategory.model} data.body.required - Edit User Object
+ * @group Course - File Upload operation
+ * @returns {object} 200 - file path object
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post(
+  "/list/relatedcategory",
+  CourseController.getcourselistbycategoryid
+);
+
+/**
  * **************************************************************************************************************************
  *                                      Course Category
  */

@@ -158,3 +158,20 @@ exports.CourseForDropDown = async (req, res) => {
         res.send(HelperUtils.error(ERROR_MSG, error.message));
     }
 }
+
+exports.getcourselistbycategoryid = async (req, res) => {
+    try {
+        let query = {}
+        if (req.body.categoryid) query.course_category = req.body.categoryid
+        let courselist = await db.find({
+            collection: models.Course,
+            query: query,
+            populate: [{
+                path: "image"
+            }]
+        })
+        res.send(HelperUtils.success("Successfully get course list", courselist))
+    } catch (error) {
+        HelperUtils.errorRes(res, "Internal server error", {})
+    }
+}
