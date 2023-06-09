@@ -114,7 +114,7 @@ exports.BatchList = async (req, res) => {
                 sort: { _id: -1 },
                 populate: [
                     { path: "center" },
-                    { path: "course" }
+                    { path: "course", populate: [{ path: "image", select: "filepath path fieldname originalname mimetype" }] }
                 ]
             }
         })
