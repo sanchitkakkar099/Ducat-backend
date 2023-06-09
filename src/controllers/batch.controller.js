@@ -103,6 +103,7 @@ exports.BatchList = async (req, res) => {
         let query = { isDel: false }
         if (req.body.status) query.status = req.body.status
 
+        if (req.body.center_id) { query.center = req.body.center_id }
 
         let result = await db.paginate({
             collection: dbModels.Batch,
