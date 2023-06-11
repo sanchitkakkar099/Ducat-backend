@@ -60,7 +60,7 @@ const CourseSchema = new mongoose.Schema({
         type: String
     },
     isDel: { type: Boolean, default: false }
-})
+}, { timestamps: true })
 
 CourseSchema.plugin(mongoosePaginate);
 

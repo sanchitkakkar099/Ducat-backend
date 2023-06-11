@@ -92,5 +92,15 @@ router.post("/all", EnquiryController.EnquiryAll);
  */
 router.post("/list", EnquiryController.EnquiryList)
 
-
+/**
+ * get all enquiries with pagination
+ * @route POST /enquiry/csv
+ * @param {EnquiryPaginationModel.model} data.body.required - Edit User Object
+ * @group Enquiry - operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post("/csv", EnquiryController.enquirycsvdownload)
 module.exports = router;

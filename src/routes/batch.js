@@ -93,8 +93,17 @@ router.post("/all", BatchController.BatchAll);
  */
 router.post("/list", BatchController.BatchList)
 
-
-module.exports = router
+/**
+ * get all enquiries with pagination
+ * @route POST /batch/csv
+ * @param {BatchPaginationModel.model} data.body.required - Edit User Object
+ * @group Batch - operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post("/csv", BatchController.batchcsv)
 
 
 module.exports = router;

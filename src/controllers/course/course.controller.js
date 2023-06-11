@@ -175,3 +175,48 @@ exports.getcourselistbycategoryid = async (req, res) => {
         HelperUtils.errorRes(res, "Internal server error", {})
     }
 }
+
+exports.coursecsv = async (req, res) => {
+    try {
+        let query = { isDel: false }
+        let pipeline = [
+            {
+                $match: query
+            },
+            {
+                $lookup: {
+                    from: 'coursecategories',
+                    localField: 'course_category',
+                    foreignField: '_id',
+                    as: 'course_category',
+                }
+            },
+            {
+                $unwind: "$course_category"
+            },
+            {
+                $project: {
+                    title: 1,
+                    category: "$course_category.name",
+                    remark: 1,
+                    status: 1,
+                    seo_url: 1,
+                    order_no: 1,
+                    popular: 1
+                }
+            }
+        ]
+
+        let data = await db.aggregate({
+            collection: models.Course,
+            pipeline: pipeline
+        })
+        let keys = ["Title", "Seo Url", "Category", "Sort", "Popular", "Remark", "Status"]
+        let filename = `course${Date.now()}.csv`
+        let filepath = await HelperUtils.generatecsv(filename, keys, data)
+        let s3url = await HelperUtils.uploadfileToS3(filepath, "course.csv")
+        return res.send(HelperUtils.success("Successsfully get course list", s3url))
+    } catch (error) {
+        HelperUtils.errorRes(res, "Internal server error", error.message)
+    }
+}

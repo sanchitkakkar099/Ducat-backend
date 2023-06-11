@@ -10,7 +10,8 @@ exports.FileDirectoryType = Object.freeze({
     4: '/blog',
     5: '/center',
     6: '/course_category',
-    99: '/default'
+    99: '/default',
+    100: '/csvfiles'
 
 })
 

@@ -189,3 +189,24 @@ exports.categorycourseslistwithpagination = async (req, res) => {
         res.status(400).send(HelperUtils.error(ERROR_MSG, error.message));
     }
 }
+
+
+
+
+exports.coursescategoriescsv = async (req, res) => {
+    try {
+        let categories = await db.find({
+            collection: dbModels.CourseCategory,
+            query: { isDel: false },
+            project: { name: 1, status: 1, remark: 1, order_no: 1 }
+        })
+        let keys = ["Name", "Sort", "Remark", "Status"]
+        let filename = "coursecategory" + Date.now() + ".csv"
+        let filepath = await HelperUtils.generatecsv(filename, keys, categories)
+        let s3url = await HelperUtils.uploadfileToS3(filepath, 'coursecategory.csv')
+        res.send(HelperUtils.success("Successfully get list", s3url))
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(HelperUtils.error(ERROR_MSG, error.message));
+    }
+}

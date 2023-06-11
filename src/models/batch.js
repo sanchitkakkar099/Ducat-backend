@@ -16,7 +16,7 @@ const BatchSchema = new mongoose.Schema({
     remark: { type: String },
     status: { type: String },
     isDel: { type: Boolean, default: false }
-})
+}, { timestamps: true })
 
 
 BatchSchema.plugin(mongoose_paginate)

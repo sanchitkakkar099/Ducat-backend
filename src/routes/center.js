@@ -114,4 +114,17 @@ router.post("/list", CenterController.CenterList)
  */
 router.get("/dropdown", CenterController.CenterForDropDown);
 
+
+/**
+ * get all centers with pagination
+ * @route POST /center/csv
+ * @param {CenterPaginationModel.model} data.body.required - Edit User Object
+ * @group Center - operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post("/csv", CenterController.centercsvdownload)
+
 module.exports = router;

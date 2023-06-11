@@ -133,3 +133,35 @@ exports.CenterForDropDown = async (req, res) => {
         res.send(HelperUtils.error(ERROR_MSG, error.message));
     }
 }
+
+exports.centercsvdownload = async (req, res) => {
+    try {
+        let query = { isDel: false }
+        if (req.body.status) query.status = req.body.status;
+        if (req.body.search) query.title = new RegExp(req.body.search, "i");
+
+        let result = await db.find({
+            collection: dbModels.Center,
+            query: query,
+            project: {
+                title: 1,
+                email: 1,
+                address: 1,
+                status: 1,
+                phone: 1,
+                order_no: 1,
+                remark: 1
+            }
+        })
+        let filename = "center" + Date.now() + ".csv"
+        let keys = ["Title", "Email", "Phone", "Address", , "Sort", "Status", "Remark"]
+        let filepath = await HelperUtils.generatecsv(filename, keys, result)
+        let s3url = await HelperUtils.uploadfileToS3(filepath, 'center.csv', 'csv')
+        res.send(HelperUtils.success("Successfully get list", s3url));
+        return;
+    } catch (error) {
+        console.log(error)
+        res.send(HelperUtils.error(ERROR_MSG, error.message));
+        return;
+    }
+}

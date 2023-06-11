@@ -137,6 +137,17 @@ router.post(
 );
 
 /**
+ * Get the list fo course with pagination
+ * @route POST /course/csv
+ * @param {CoursePaginationModel.model} data.body.required - Edit User Object
+ * @group Course - operation
+ * @returns {object} 200
+ *      Return JSON object
+ *
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post("/csv", CourseController.coursecsv);
+/**
  * **************************************************************************************************************************
  *                                      Course Category
  */
@@ -253,5 +264,17 @@ router.get(
 router.post(
   "/category/drop/down/list",
   CourseCategoryController.categorycourseslistwithpagination
+);
+
+/**
+ * POST  course list fro drown down purpose
+ * @route POST /course/category/csv
+ * @group Course Category - File Upload operation
+ * @returns {object} 200 - file path object
+ * @returns {Error}  Error - Unexpected error
+ */
+router.post(
+  "/category/csv",
+  CourseCategoryController.coursescategoriescsv
 );
 module.exports = router;

@@ -3,6 +3,10 @@ const dbModels = require("../utils/modelName");
 const HelperUtils = require("../utils/helper");
 const { ERROR_MSG } = require("../utils/const");
 
+const fs = require("fs")
+const fastcsv = require("fast-csv")
+const path = require("path")
+
 
 exports.createEnquiryAndEdit = async (req, res) => {
     try {
@@ -125,6 +129,70 @@ exports.EnquiryList = async (req, res) => {
         return;
     } catch (error) {
         res.send(HelperUtils.error(ERROR_MSG, error.message));
+        return;
+    }
+}
+
+
+exports.enquirycsvdownload = async (req, res) => {
+    try {
+        let query = { isDel: false }
+        if (req.body.status) query.status = req.body.status
+        if (req.body.search) {
+            query['$or'] = []
+            query['$or'].push({ name: new RegExp(req.body.search, "i") });
+            query['$or'].push({ email: new RegExp(req.body.search, "i") });
+            query['$or'].push({ phone: new RegExp(req.body.search, "i") });
+        }
+        let pipeline = [
+            {
+                $lookup:
+                {
+                    from: 'courses',
+                    localField: 'course',
+                    foreignField: '_id',
+                    as: 'course'
+                }
+            },
+            { $unwind: "$course" },
+            {
+                $lookup:
+                {
+                    from: 'centers',
+                    localField: 'center',
+                    foreignField: '_id',
+                    as: 'center'
+                }
+            },
+            { $unwind: "$center" },
+            {
+                $project: {
+                    name: 1,
+                    email: 1,
+                    phone: 1,
+                    course: '$course.title',
+                    center: "$center.title",
+                    remark: 1,
+                    status: 1,
+
+                }
+            }
+        ]
+        pipeline.unshift({ $match: query })
+        let result = await db.aggregate({
+            collection: dbModels.Enquiry,
+            pipeline: pipeline
+        })
+        let keys = ['Name', 'Email', 'Phone', 'Course', 'Center', 'Rmark', 'Status']
+
+        let filename = "enquiry" + Date.now() + ".csv"
+        let filepath = await HelperUtils.generatecsv(filename, keys, result)
+        let s3url = await HelperUtils.uploadfileToS3(filepath, 'enquiry.csv', "csv")
+        return res.status(200)
+            .send(HelperUtils.success("Successfully get data", s3url))
+
+    } catch (error) {
+        HelperUtils.errorRes(res, ERROR_MSG, error.message)
         return;
     }
 }

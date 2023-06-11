@@ -186,3 +186,89 @@ exports.BatchList = async (req, res) => {
         return;
     }
 }
+
+
+exports.batchcsv = async (req, res) => {
+    try {
+        let querymatch = { $match: { isDel: false } }
+        if (req.body.status)
+            querymatch.$match.status = req.body.status;
+
+        if (req.body.center_id)
+            query.$match.center = req.body.center_id;
+
+        let pipeline = [
+            { ...querymatch },
+            {
+                $lookup: {
+                    from: 'centers',
+                    localField: 'center',
+                    foreignField: '_id',
+                    as: 'center',
+                }
+            },
+            {
+                $unwind: "$center"
+            },
+            {
+                $lookup: {
+                    from: 'courses',
+                    localField: 'course',
+                    foreignField: '_id',
+                    as: 'course',
+                }
+            },
+            {
+                $unwind: "$course"
+            },
+            {
+                $lookup: {
+                    from: 'fileuploads',
+                    localField: 'course.image',
+                    foreignField: '_id',
+                    as: 'course.image',
+                }
+            },
+            {
+                $unwind: "$course.image"
+            },
+            {
+                $project: {
+                    trainer: 1,
+                    start_date: 1,
+                    course: "$course.title",
+                    center: "$center.title",
+                    status: 1,
+                    remark: 1
+                }
+            }
+        ]
+
+        if (req.body.search) {
+            pipeline.push({
+                $match: {
+                    $or: [
+                        { 'course': new RegExp(req.body.search, 'i') },
+                        { 'center': new RegExp(req.body.search, 'i') },
+                        { 'trainer': new RegExp(req.body.search, 'i') },
+                    ]
+                }
+            })
+        }
+
+        let data = await db.aggregate({
+            collection: dbModels.Batch,
+            pipeline: pipeline
+        })
+        let filename = "batch" + Date.now() + ".csv"
+        let keys = ["Course", "Center", "Trainer", "Time", "Status", "Remark"]
+        let filepath = await HelperUtils.generatecsv(filename, keys, data)
+        let s3url = await HelperUtils.uploadfileToS3(filepath, "batch.csv")
+
+        return res.send(HelperUtils.success("Successfully get bacth list", s3url))
+
+    } catch (error) {
+        res.send(HelperUtils.error(ERROR_MSG, error.message));
+        return;
+    }
+}
