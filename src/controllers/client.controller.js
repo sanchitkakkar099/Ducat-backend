@@ -72,7 +72,8 @@ exports.ClientAll = async (req, res) => {
         let allClients = await db.find({
             collection: dbModels.Client,
             query: query,
-            populate: { path: "image", select: "filepath" }
+            populate: { path: "image", select: "filepath" },
+            sort: { order_no: 1 },
         })
         res.send(HelperUtils.success("Successfully get list", allClients));
         return;
@@ -92,7 +93,7 @@ exports.ClientList = async (req, res) => {
             collection: dbModels.Client,
             query: query,
             options: {
-                sort: { _id: -1 },
+                sort: { order_no: 1 },
                 page: (req.body.page) ? req.body.page : 1,
                 limit: (req.body.limit) ? req.body.limit : 10,
                 populate: { path: "image", select: "filepath" }

@@ -64,7 +64,7 @@ exports.CategoryList = async (req, res) => {
             options: {
                 page: (req.body.page) ? req.body.page : 1,
                 limit: (req.body.limit) ? req.body.limit : 10,
-                sort: { _id: -1 },
+                sort: { order_no: 1 },
                 populate: { path: "logo" }
             }
         })
@@ -116,6 +116,7 @@ exports.CategoryForDropDown = async (req, res) => {
                 value: "$_id",
             }
         })
+        pipeline.push({ sort: { order_no: 1 } })
         let result = await db.aggregate({
             collection: dbModels.CourseCategory,
             pipeline: pipeline
@@ -164,7 +165,8 @@ exports.categorycourseslistwithpagination = async (req, res) => {
                 limit: (req.body.limit) ? req.body.limit : 10,
                 //sort: { _id: -1 },
                 populate: { path: "logo" },
-                lean: true
+                lean: true,
+                sort: { order_no: 1 }
             }
         })
 
@@ -195,10 +197,13 @@ exports.categorycourseslistwithpagination = async (req, res) => {
 
 exports.coursescategoriescsv = async (req, res) => {
     try {
+        let query = { isDel: false }
+        if (req.body.search) query.title = new RegExp(req.body.search, 'i')
         let categories = await db.find({
             collection: dbModels.CourseCategory,
-            query: { isDel: false },
-            project: { name: 1, status: 1, remark: 1, order_no: 1 }
+            query: query,
+            project: { name: 1, status: 1, remark: 1, order_no: 1 },
+            sort: { order_no: 1 },
         })
         let keys = ["Name", "Sort", "Remark", "Status"]
         let filename = "coursecategory" + Date.now() + ".csv"

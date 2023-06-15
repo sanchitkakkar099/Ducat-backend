@@ -76,6 +76,7 @@ exports.CenterAll = async (req, res) => {
             populate: [
                 { path: "image", select: "fieldname originalname mimetype filename filepath size" }
             ],
+            sort: { order_no: 1 },
         })
         res.send(HelperUtils.success("Successfully get list", allCenters));
         return;
@@ -95,7 +96,7 @@ exports.CenterList = async (req, res) => {
             collection: dbModels.Center,
             query: query,
             options: {
-                sort: { _id: -1 },
+                sort: { order_no: 1 },
                 page: (req.body.page) ? req.body.page : 1,
                 limit: (req.body.limit) ? req.body.limit : 10,
                 populate: [
@@ -151,7 +152,8 @@ exports.centercsvdownload = async (req, res) => {
                 phone: 1,
                 order_no: 1,
                 remark: 1
-            }
+            },
+            sort: { order_no: 1 },
         })
         let filename = "center" + Date.now() + ".csv"
         let keys = ["Title", "Email", "Phone", "Address", , "Sort", "Status", "Remark"]

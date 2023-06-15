@@ -123,7 +123,7 @@ exports.CourseList = async (req, res) => {
                 ],
                 page: (req.body.page) ? req.body.page : 1,
                 limit: (req.body.limit) ? req.body.limit : 10,
-                sort: { _id: -1 }
+                sort: { order_no: 1 }
             }
         })
         res.send(HelperUtils.success("Successfully get list", result));
@@ -147,6 +147,7 @@ exports.CourseForDropDown = async (req, res) => {
                 value: "$_id",
             }
         })
+        pipeline.push({ sort: { order_no: 1 } })
         console.log(JSON.stringify(pipeline, null, 2))
         let result = await db.aggregate({
             collection: models.Course,
@@ -168,7 +169,8 @@ exports.getcourselistbycategoryid = async (req, res) => {
             query: query,
             populate: [{
                 path: "image"
-            }]
+            }],
+            sort: { order_no: 1 },
         })
         res.send(HelperUtils.success("Successfully get course list", courselist))
     } catch (error) {
@@ -179,6 +181,7 @@ exports.getcourselistbycategoryid = async (req, res) => {
 exports.coursecsv = async (req, res) => {
     try {
         let query = { isDel: false }
+        if (req.body.search) query.title = new RegExp(req.body.search, 'i')
         let pipeline = [
             {
                 $match: query
@@ -204,6 +207,9 @@ exports.coursecsv = async (req, res) => {
                     order_no: 1,
                     popular: 1
                 }
+            },
+            {
+                sort: { order_no: 1 }
             }
         ]
 
