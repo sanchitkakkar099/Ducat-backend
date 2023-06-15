@@ -147,11 +147,12 @@ exports.CourseForDropDown = async (req, res) => {
                 value: "$_id",
             }
         })
-        pipeline.push({ sort: { order_no: 1 } })
+
         console.log(JSON.stringify(pipeline, null, 2))
         let result = await db.aggregate({
             collection: models.Course,
-            pipeline: pipeline
+            pipeline: pipeline,
+            options: { sort: { order_no: 1 } }
         })
         res.send(HelperUtils.success("Successfully get category", result));
         return
@@ -207,15 +208,15 @@ exports.coursecsv = async (req, res) => {
                     order_no: 1,
                     popular: 1
                 }
-            },
+            }
+        ]
+        let data = await db.aggregate({
+            collection: models.Course,
+            pipeline: pipeline,
+            options:
             {
                 sort: { order_no: 1 }
             }
-        ]
-
-        let data = await db.aggregate({
-            collection: models.Course,
-            pipeline: pipeline
         })
         let keys = ["Title", "Seo Url", "Category", "Sort", "Popular", "Remark", "Status"]
         let filename = `course${Date.now()}.csv`

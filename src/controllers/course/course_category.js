@@ -116,10 +116,11 @@ exports.CategoryForDropDown = async (req, res) => {
                 value: "$_id",
             }
         })
-        pipeline.push({ sort: { order_no: 1 } })
+
         let result = await db.aggregate({
             collection: dbModels.CourseCategory,
-            pipeline: pipeline
+            pipeline: pipeline,
+            options: { sort: { order_no: 1 } }
         })
         res.send(HelperUtils.success("Successfully get category", result));
         return
