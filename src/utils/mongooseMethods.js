@@ -103,6 +103,7 @@ async function exists({ collection, query }) {
 
 async function paginate({ collection, query, options }) {
     const result = await dbModels[collection].paginate(query, options)
+    if (result.docs.length == 0) result.totalPages = 0
     return result
 }
 
