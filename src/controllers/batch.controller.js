@@ -106,7 +106,7 @@ exports.BatchList = async (req, res) => {
             querymatch.$match.status = req.body.status;
 
         if (req.body.center_id)
-            query.$match.center = req.body.center_id;
+            querymatch.$match.center = req.body.center_id;
 
         let pipeline = [
             { ...querymatch },
@@ -195,7 +195,7 @@ exports.batchcsv = async (req, res) => {
             querymatch.$match.status = req.body.status;
 
         if (req.body.center_id)
-            query.$match.center = req.body.center_id;
+            querymatch.$match.center = req.body.center_id;
 
         let pipeline = [
             { ...querymatch },
