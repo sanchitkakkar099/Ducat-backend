@@ -84,7 +84,7 @@ exports.deleteCourse = async (req, res) => {
             collection: models.Course,
             query: { _id: req.params.id }
         });
-        if (course) {
+        if (!course) {
             res.send(HelperUtils.error("Course Not Found", {}));
             return;
         }
@@ -104,7 +104,7 @@ exports.deleteCourse = async (req, res) => {
 
 exports.CourseList = async (req, res) => {
     try {
-        let query = {}
+        let query = { isDel: false }
 
         if (req.body.status) query.status = req.body.status;
         if (req.body.course_category) query.course_category = req.body.course_category;
@@ -163,7 +163,7 @@ exports.CourseForDropDown = async (req, res) => {
 
 exports.getcourselistbycategoryid = async (req, res) => {
     try {
-        let query = {}
+        let query = { isDel: false }
         if (req.body.categoryid) query.course_category = req.body.categoryid
         let courselist = await db.find({
             collection: models.Course,

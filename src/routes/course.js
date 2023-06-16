@@ -77,7 +77,7 @@ router.get("/byid/:id", CourseController.getCourseById);
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.put("/:id");
+router.put("/:id", CourseController.crouseCreateAndUpdate);
 
 /**
  * delete Course
