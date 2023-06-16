@@ -2,6 +2,7 @@ const db = require("../utils/mongooseMethods");
 const dbModels = require("../utils/modelName");
 const HelperUtils = require("../utils/helper");
 const { ERROR_MSG } = require("../utils/const");
+const mongoose = require("mongoose")
 
 
 exports.BacthCreateAndEdit = async (req, res) => {
@@ -106,7 +107,7 @@ exports.BatchList = async (req, res) => {
             querymatch.$match.status = req.body.status;
 
         if (req.body.center_id)
-            querymatch.$match.center = req.body.center_id;
+            querymatch.$match.center = new mongoose.Types.ObjectId(req.body.center_id);
 
         let pipeline = [
             { ...querymatch },
