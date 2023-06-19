@@ -134,7 +134,7 @@ exports.getcoursescategories = async (req, res) => {
     try {
         let categories = await db.find({
             collection: dbModels.CourseCategory,
-            query: {},
+            query: { isDel: false },
             project: { name: 1 }
         })
         for (let i = 0; i < categories.length; i++) {
