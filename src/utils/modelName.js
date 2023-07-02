@@ -17,5 +17,8 @@ module.exports = {
     BlogCategory: "BlogCategory",
     Drive: "Drive",
     PlacedStudent: "PlacedStudent",
-    StudentRegisteration: "StudentRegisteration"
+    StudentRegisteration: "StudentRegisteration",
+    Certificate: "Certificate",
+    ContactUs: "ContactUs",
+    JobApplication: "JobApplication"
 }

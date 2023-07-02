@@ -16,6 +16,9 @@ const blogRoutes = require("./blog");
 const driveRoutes = require("./drive");
 const placedStudentRoutes = require("./placedstudent");
 const studentRegRoutes = require("./studentregisteration");
+const certificateRoutes = require("./certificate");
+const contactUsRoutes = require("./contactus");
+const jobapplicationRoutes = require("./jobapplication");
 
 
 router.use("/appsetting", appsettingRoutes);
@@ -34,5 +37,8 @@ router.use("/blog", blogRoutes);
 router.use("/drive", driveRoutes);
 router.use("/placed/student", placedStudentRoutes);
 router.use("/student/registration", studentRegRoutes);
+router.use("/jobapplication", jobapplicationRoutes)
+router.use("/certificate", certificateRoutes)
+router.use("/contactus", contactUsRoutes)
 
 module.exports = router;

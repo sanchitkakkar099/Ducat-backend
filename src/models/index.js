@@ -16,6 +16,11 @@ const { RegistrationSchema } = require("./registration")
 const { UserSchema } = require("./user")
 const { BlogSchema, Blog_CategorySchema } = require("./blog")
 const { DriveSchema, Placed_StudentSchema, StudentRegisterationSchema } = require("./placement")
+const { CertificatesSchema } = require("./certificates");
+const { JobApplicationSchema } = require("./jobapplication");
+const { ConactUsSchema } = require("./contactus");
+
+
 const dbModels = {
     Course: mongoose.model(models.Course, CourseSchema),
     CourseCategory: mongoose.model(models.CourseCategory, CourseCategorySchema),
@@ -35,7 +40,10 @@ const dbModels = {
     BlogCategory: mongoose.model(models.BlogCategory, Blog_CategorySchema),
     Drive: mongoose.model(models.Drive, DriveSchema),
     PlacedStudent: mongoose.model(models.PlacedStudent, Placed_StudentSchema),
-    StudentRegisteration: mongoose.model(models.StudentRegisteration, StudentRegisterationSchema)
+    StudentRegisteration: mongoose.model(models.StudentRegisteration, StudentRegisterationSchema),
+    Certificate: mongoose.model(models.Certificate, CertificatesSchema),
+    ContactUs: mongoose.model(models.ContactUs, ConactUsSchema),
+    JobApplication: mongoose.model(models.JobApplication, JobApplicationSchema),
 }
 
 
