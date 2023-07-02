@@ -15,4 +15,7 @@ module.exports = {
     User: 'User',
     Blog: "Blog",
     BlogCategory: "BlogCategory",
+    Drive: "Drive",
+    PlacedStudent: "PlacedStudent",
+    StudentRegisteration: "StudentRegisteration"
 }

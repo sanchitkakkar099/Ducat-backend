@@ -13,6 +13,9 @@ const galleryRoutes = require("./gallery")
 const registrationRoutes = require("./registrations")
 const adminroutes = require("./admin");
 const blogRoutes = require("./blog");
+const driveRoutes = require("./drive");
+const placedStudentRoutes = require("./placedstudent");
+const studentRegRoutes = require("./studentregisteration");
 
 
 router.use("/appsetting", appsettingRoutes);
@@ -28,5 +31,8 @@ router.use("/gallery", galleryRoutes);
 router.use("/registeration", registrationRoutes);
 router.use("/admin", adminroutes);
 router.use("/blog", blogRoutes);
+router.use("/drive", driveRoutes);
+router.use("/placed/student", placedStudentRoutes);
+router.use("/student/registration", studentRegRoutes);
 
 module.exports = router;
