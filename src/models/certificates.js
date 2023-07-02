@@ -31,7 +31,10 @@ const CertificatesSchema = new mongoose.Schema({
     },
     status: {
         type: String
-    }
+    },
+    isDel: {
+        type: Boolean, default: false
+    },
 }, { timestamps: true });
 
 

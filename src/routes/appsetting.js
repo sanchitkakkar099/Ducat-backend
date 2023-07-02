@@ -59,7 +59,7 @@ router.get("/bykey/:key", appSettingController.GetSettingValueByKey);
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.post("/bykey/{key}", appSettingController.UpdateSettingByKey);
+router.post("/bykey/:key", appSettingController.UpdateSettingByKey);
 
 
 module.exports = router
