@@ -12,6 +12,7 @@ const serviceRoutes = require("./service")
 const galleryRoutes = require("./gallery")
 const registrationRoutes = require("./registrations")
 const adminroutes = require("./admin");
+const blogRoutes = require("./blog");
 
 
 router.use("/appsetting", appsettingRoutes);
@@ -26,5 +27,6 @@ router.use("/service", serviceRoutes);
 router.use("/gallery", galleryRoutes);
 router.use("/registeration", registrationRoutes);
 router.use("/admin", adminroutes);
+router.use("/blog", blogRoutes);
 
 module.exports = router;

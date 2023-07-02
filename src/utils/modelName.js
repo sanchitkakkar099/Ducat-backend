@@ -13,4 +13,6 @@ module.exports = {
     Gallery: 'Gallery',
     Registration: 'Registration',
     User: 'User',
+    Blog: "Blog",
+    BlogCategory: "BlogCategory",
 }

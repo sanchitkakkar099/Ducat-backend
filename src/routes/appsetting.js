@@ -4,14 +4,14 @@ const appSettingController = require("../controllers/appsetting")
 
 /**
  * get all registration with pagination
- * @route GET /appsetting/configuratoin/email
+ * @route GET /appsetting/configuration/email
  * @group AppSetting - operation
  * @returns {object} 200
  *      Return JSON object
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.get("/configuratoin/email", appSettingController.ConfigurationsEmail);
+router.get("/configuration/email", appSettingController.ConfigurationsEmail);
 
 /**
  * @typedef configurationemailmodel
@@ -24,7 +24,7 @@ router.get("/configuratoin/email", appSettingController.ConfigurationsEmail);
  */
 /**
  * update the configuration email
- * @route POST /appsetting/configuratoin/email
+ * @route POST /appsetting/configuration/email
  * @param {configurationemailmodel.model} data.body.required - Edit User Object
  * @group AppSetting - operation
  * @returns {object} 200
@@ -32,7 +32,7 @@ router.get("/configuratoin/email", appSettingController.ConfigurationsEmail);
  *
  * @returns {Error}  Error - Unexpected error
  */
-router.post("/configuratoin/email", appSettingController.ConfigurationsEmailUpdate);
+router.post("/configuration/email", appSettingController.ConfigurationsEmailUpdate);
 
 
 /**
