@@ -59,6 +59,15 @@ const CourseSchema = new mongoose.Schema({
     contact_email: {
         type: String
     },
+    eligibility: {
+        type: String
+    },
+    enrollmennt_options: {
+        type: String
+    },
+    faqs: {
+        type: String
+    },
     isDel: { type: Boolean, default: false }
 }, { timestamps: true })
 

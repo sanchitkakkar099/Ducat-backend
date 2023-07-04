@@ -116,7 +116,7 @@ exports.blogList = async (req, res) => {
             query: query,
             options: {
                 populate: [
-                    { path: 'blog_category', select: "title" },
+                    { path: 'blog_category' },
                     { path: "image", select: "filepath path fieldname originalname mimetype" },
                     { path: "feature_image", select: "filepath path fieldname originalname mimetype" }
                 ],

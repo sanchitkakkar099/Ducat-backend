@@ -45,6 +45,18 @@ exports.placedStudentById = async (req, res) => {
         let placedStudentObj = await db.findOne({
             collection: dbModels.PlacedStudent,
             query: { _id: req.params.id },
+            populate: [
+                {
+                    path: "course",
+
+                },
+                {
+                    path: "center"
+                },
+                {
+                    path: "image"
+                }
+            ]
 
         })
         if (placedStudentObj && placedStudentObj.status) placedStudentObj.status = {
