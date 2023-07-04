@@ -110,7 +110,7 @@ exports.blogCategoryList = async (req, res) => {
         res.send(HelperUtils.success("Successfully get list", result));
         return
     } catch (error) {
-        res.send(HelperUtils.error(ERROR_MSG), error.message);
+        res.send(HelperUtils.error(ERROR_MSG, error.message));
         return;
     }
 }
