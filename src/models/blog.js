@@ -9,11 +9,11 @@ const BlogSchema = new mongoose.Schema({
     },
     image: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "FileUload"
+        ref: "FileUpload"
     },
     feature_image: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "FileUload"
+        ref: "FileUpload"
     },
     short_desc: { type: String },
     long_desc: { type: String },
@@ -52,7 +52,7 @@ const Blog_CategorySchema = new mongoose.Schema({
     title: { type: String },
     image: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "FileUload"
+        ref: "FileUpload"
     },
     description: { type: String },
     seo_url: { type: String },
