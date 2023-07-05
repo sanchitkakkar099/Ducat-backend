@@ -155,6 +155,10 @@ exports.centercsvdownload = async (req, res) => {
             },
             sort: { order_no: 1 },
         })
+        let page = 1, limit = 10;
+        if (req.body.page) page = req.body.page;
+        if (req.body.limit) limit = req.body.limit;
+        result = result.slice((page - 1) * limit, page * limit);
         let filename = "center" + Date.now() + ".csv"
         let keys = ["Title", "Email", "Phone", "Address", , "Sort", "Status", "Remark"]
         let filepath = await HelperUtils.generatecsv(filename, keys, result)

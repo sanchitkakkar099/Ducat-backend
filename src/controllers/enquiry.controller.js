@@ -183,6 +183,10 @@ exports.enquirycsvdownload = async (req, res) => {
             collection: dbModels.Enquiry,
             pipeline: pipeline
         })
+        let page = 1, limit = 10;
+        if (req.body.page) page = req.body.page;
+        if (req.body.limit) limit = req.body.limit;
+        result = result.slice((page - 1) * limit, page * limit);
         let keys = ['Name', 'Email', 'Phone', 'Course', 'Center', 'Rmark', 'Status']
 
         let filename = "enquiry" + Date.now() + ".csv"

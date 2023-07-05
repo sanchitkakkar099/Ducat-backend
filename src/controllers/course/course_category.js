@@ -206,6 +206,10 @@ exports.coursescategoriescsv = async (req, res) => {
             project: { name: 1, status: 1, remark: 1, order_no: 1 },
             sort: { order_no: 1 },
         })
+        let page = 1, limit = 10;
+        if (req.body.page) page = req.body.page;
+        if (req.body.limit) limit = req.body.limit;
+        categories = categories.slice((page - 1) * limit, page * limit);
         let keys = ["Name", "Sort", "Remark", "Status"]
         let filename = "coursecategory" + Date.now() + ".csv"
         let filepath = await HelperUtils.generatecsv(filename, keys, categories)

@@ -218,6 +218,10 @@ exports.coursecsv = async (req, res) => {
                 sort: { order_no: 1 }
             }
         })
+        let page = 1, limit = 10;
+        if (req.body.page) page = req.body.page;
+        if (req.body.limit) limit = req.body.limit;
+        data = data.slice((page - 1) * limit, page * limit);
         let keys = ["Title", "Seo Url", "Category", "Sort", "Popular", "Remark", "Status"]
         let filename = `course${Date.now()}.csv`
         let filepath = await HelperUtils.generatecsv(filename, keys, data)

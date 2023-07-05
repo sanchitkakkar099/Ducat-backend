@@ -261,6 +261,10 @@ exports.batchcsv = async (req, res) => {
             collection: dbModels.Batch,
             pipeline: pipeline
         })
+        let page = 1, limit = 10;
+        if (req.body.page) page = req.body.page;
+        if (req.body.limit) limit = req.body.limit;
+        data = data.slice((page - 1) * limit, page * limit);
         let filename = "batch" + Date.now() + ".csv"
         let keys = ["Course", "Center", "Trainer", "Time", "Status", "Remark"]
         let filepath = await HelperUtils.generatecsv(filename, keys, data)
