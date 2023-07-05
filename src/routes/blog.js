@@ -165,14 +165,14 @@ router.post("/category/list",
 
 /**
 * Get the list of blog catgegory
-* @route POST /blog/category/dropdown/list
+* @route GET /blog/category/dropdown/list
 * @group Blog Category - operation
 * @returns {object} 200
 *      Return JSON object
 *
 * @returns {Error}  Error - Unexpected error
 */
-router.post("/category/dropdown/list",
+router.get("/category/dropdown/list",
     blogCategoryController.CategoryForDropDown);
 
 

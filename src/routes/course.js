@@ -37,7 +37,7 @@ const CourseCategoryController = require("../controllers/course/course_category"
  * @property {string} footer_js
  * @property {string} contact_email
  * @property {string} eligibility
- * @property {string} enrollmennt_options
+ * @property {string} enrollment_option
  * @property {string} faqs
  */
 
