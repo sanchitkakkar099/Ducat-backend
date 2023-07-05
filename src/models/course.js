@@ -62,7 +62,7 @@ const CourseSchema = new mongoose.Schema({
     eligibility: {
         type: String
     },
-    enrollmennt_options: {
+    enrollment_option: {
         type: String
     },
     faqs: {
