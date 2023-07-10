@@ -126,7 +126,7 @@ exports.CategoryForDropDown = async (req, res) => {
         else pipeline.push({ $match: { status: "Active", isDel: false } })
         pipeline.push({
             $project: {
-                label: "$name",
+                label: "$title",
                 value: "$_id",
             }
         })
